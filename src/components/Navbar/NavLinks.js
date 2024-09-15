@@ -10,7 +10,7 @@ const NavLinks = () => {
             <HashLink className="px-4 font-extrabold text-gray-500 hover:text-green-900" smooth to="/#services">
                 Scam Awareness
             </HashLink>
-            <HashLink className="px-4 font-extrabold text-gray-500 hover:text-green-900" to="/">
+            <HashLink className="px-4 font-extrabold text-gray-500 hover:text-green-900" to="/detection">
                 Scam Detection
             </HashLink>
             <HashLink className="px-4 font-extrabold text-gray-500 hover:text-green-900" to="/contact#contact">

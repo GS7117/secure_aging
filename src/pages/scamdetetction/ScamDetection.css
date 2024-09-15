@@ -1,0 +1,273 @@
+/* ScamDetection.css */
+
+/* 背景和页面布局 */
+
+.banner-image {
+    width: 45%;
+    max-width: 1500px;
+    height: auto;
+    margin-bottom: 5px;
+    margin-top: 5px;
+  }
+  
+  .title {
+    color: white;
+    font-size: 36px;
+    margin-top: 5px;
+  }
+
+  
+  .subtitle {
+    color: black;
+    font-size: 75px;
+    text-align: center;
+    margin-top: 15px;
+    margin-left: 50px;
+    margin-bottom: 25px;
+    font-family: 'Comic Sans MS', sans-serif; /* 使用 Arial 字体 */
+  }
+  
+  .content {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  
+  .input-text {
+    width: 100%;
+    padding: 40px;
+    border-radius: 10px;
+    border: yes;
+    font-size: 18px;
+    margin-bottom: 15px;
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .detect-button {
+    width: 115%;
+    padding: 20px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 22px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .detect-button:hover {
+    background-color: #218838;
+  }
+  
+  .detect-button.loading {
+    background-color: #afb1b1;
+    cursor: not-allowed;
+  }
+  
+  .loader {
+    border: 4px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 4px solid #3498db;
+    width: 10px;
+    height: 10px;
+    animation: spin 1s linear infinite;
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
+  .spinner-border {
+    display: inline-block;
+    width: 1rem;
+    height: 1rem;
+    vertical-align: text-bottom;
+    border: 0.25em solid currentColor;
+    border-right-color: transparent;
+    border-radius: 50%;
+    animation: spinner-border 0.75s linear infinite;
+  }
+  
+  @keyframes spinner-border {
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+  
+  
+  /* 结果显示 */
+  .result-box {
+    margin-top: 30px;
+  }
+  
+  .result {
+    width: 105%;
+    padding: 25px;
+    border-radius: 10px;
+    font-size: 25px;
+    color: white;
+  }
+  
+  .result.spam {
+    background-color: #ff4d4d;
+  }
+  
+  .result.not-spam {
+    background-color: #28a745;
+  }
+  
+  .result.error {
+    background-color: #f0ad4e;
+  }
+
+  .phishing-intro {
+    background: linear-gradient(90deg, #326A5D 0%, #61D0B6 100%);
+    color: rgb(3, 3, 3);
+    padding: 20px 15px;
+
+  }
+
+  .phishing-intro h1 {
+    font-size: 48px;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    color: white;
+  }
+
+  .text-safety-guidelines-container {
+    box-sizing: border-box;
+    min-width: 1300px;
+    padding-right: 170px;
+    padding-left: 170px;
+    text-align: left;
+    flex-direction: column;  /* 确保内容垂直排列 */
+    display: block;  /* 显式地将其设置为块级元素 */
+  /* 确保靠左 */
+    margin-left: 50px;
+    align-items: flex-start;  /* 确保内容靠左对齐 */
+  }
+  .text-evaluation-guide {
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 1222px;
+    padding: 0;
+    padding-top: 86px;
+    padding-bottom: 63px;
+    margin: 0;
+    font: 400 32px Montserrat, sans-serif;
+    color: rgb(68, 66, 66);
+    text-align: left;
+  }
+  .primary-heading {
+    font: 700 32px Montserrat, sans-serif;
+    text-align: left;
+    color: #0079e9;
+  }
+  .credibility-checklist-item {
+    padding-left: 1.5em;
+    margin: 0;
+    list-style: disc;
+    font: 400 32px Montserrat, sans-serif;
+    color: rgb(44, 42, 42);
+    max-width: 1222px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+
+  .action-panel {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    margin-top: 20px;
+    flex: 1 0 auto;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+  }
+  .main-heading-text-style1 {
+    flex: 1 0 auto;
+    padding: 0;
+    text-align: left;
+    font: 400 48px/50px Roboto, sans-serif;
+    color: #0079e9;
+    margin-bottom: 25px;
+    font-weight: bold;
+    border-bottom: 2px solid #0079e9;
+    display: inline-block;
+  }
+  .message-instructions-container {
+    box-sizing: border-box;
+    flex: 0 0 auto;
+    max-width: 1535px;
+    padding: 0;
+    margin: 0;
+    font: 400 32px/40px Roboto, sans-serif;
+    color: black;
+    text-align: left;
+    margin-left: 45px;
+  }
+  .next-steps-list {
+    padding-left: 1.5em;
+    margin: 0;
+    color: rgb(44, 42, 42);
+    list-style: disc;
+  }
+
+  .cover-image-container {
+    box-sizing: border-box;
+    display: block;
+    width: 1000px;
+    max-width: initial;
+    height: 600px;
+    border: none;
+    object-fit: cover;
+    margin-left: 45px;
+    margin-bottom: 60px;
+    margin-top: 60px;
+    border-radius: 10px;
+    transition: transform 0.3s ease;
+  }
+
+  .cover-image-container:hover {
+    transform: scale(1.05);
+  }
+
+  .how-to-delete-container {
+    box-sizing: border-box;
+    min-width: 1200px;
+    padding-right: 170px;
+    padding-left: 170px;
+    text-align: left;
+    flex-direction: column;  /* 确保内容垂直排列 */
+    display: block;  /* 显式地将其设置为块级元素 */
+  /* 确保靠左 */
+    margin-left: 20px;
+    margin-top: 80px;
+    align-items: flex-start;  /* 确保内容靠左对齐 */
+    border-radius: 10px;
+
+  }
+
+
+  
+  /* 响应式设计 */
+  @media (max-width: 768px) {
+    .detection-page {
+      padding: 10px;
+    }
+  
+    .input-text, .detect-button {
+      font-size: 16px;
+    }
+  
+    .title {
+      font-size: 28px;
+    }
+  
+    .subtitle {
+      font-size: 16px;
+    }
+  }
+

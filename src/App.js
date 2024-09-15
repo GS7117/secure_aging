@@ -12,12 +12,17 @@ import Home from './pages/Home';
 import Contact from './pages/Contact';
 import DemoProduct from './pages/DemoProduct';
 import ScamClassification from './pages/ScamClassification';
+import Detection from './pages/Detection';
 import PhishingPage from './components/PhishingPage';
 import InvestmentScamPage from './components/InvestmentScamPage';
 import LotteryScam from './components/LotteryScam';
 import RomanceScamPage from './components/RomanceScam';
 import {useDocTitle} from './components/CustomHook';
 import ScrollToTop from './components/ScrollToTop';
+import EmailDetection from './pages/scamdetetction/EmailDetection';
+import TextDetection from './pages/scamdetetction/TextDetection';
+import URLDetection from './pages/scamdetetction/URLDetection';
+
 
 function App() {
   useEffect(() => {
@@ -49,6 +54,10 @@ function App() {
             <Route path="/investment-scam-page" element={<InvestmentScamPage />} />
             <Route path="/lottery-scam-page" element={<LotteryScam />} />
             <Route path="/romance-scams" element={<RomanceScamPage />} />  
+            <Route path="/detection" element={<Detection />} /> 
+            <Route path="/email" element={<EmailDetection />} /> 
+            <Route path="/text" element={<TextDetection />} /> 
+            <Route path="/url" element={<URLDetection />} /> 
           </Routes>
         </ScrollToTop>
       </Router>

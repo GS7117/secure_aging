@@ -43,7 +43,7 @@ const Hero = () => {
                             </div>
                         </div>
                         <div className="flex lg:justify-end w-full lg:w-1/2" data-aos="fade-up" data-aos-delay="700">
-                            <img src= {seniorImg} alt="card img" className="rounded-t float-right duration-1000 h-full w-3/5"  />
+                            <img src= {seniorImg} alt="card img" className="rounded-t float-right duration-1000 h-full w-3/5 w-full lg:w-3/5 lg:h-full"  />
                         </div>
                     </div>
                 </div>

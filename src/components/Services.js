@@ -11,14 +11,14 @@ const Services = () => {
         {
             img: img,
             title: "Scam Statistics",
-            text: "text here",
+            text: "We provide real-time scam statistics, offering insights into trends and affected demographics for awareness.",
             link: "",
             buttonLabel: "Coming Soon"
         },
         {
             img: img2,
             title: "Scam Type",
-            text: "text here",
+            text: "We categorize common scam types like phishing, and online fraud, helping you avoid potential risks.",
             link: "/scam-classification",
             buttonLabel: "Learn More"
         },
@@ -26,13 +26,13 @@ const Services = () => {
             img: img3,
             title: "Scam Detection Tool ",
             text: "We have created an optimized high-quality, scam detection tool for people to help them identify potential scams.",
-            link: "/domain-hosting-services",
+            link: "/detection",
             buttonLabel: "Learn More"
         },
         {
             img: img4,
             title: "Scam News",
-            text: "text here",
+            text: "Stay updated with the latest scam news, including new fraud tactics, major cases, and security alerts.",
             link: "",
             buttonLabel: "Coming Soon"
         }
