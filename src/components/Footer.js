@@ -24,13 +24,13 @@ const Footer = () => {
                         <h6 className="text-[#283618] text-xl font-bold mb-4">LINKS</h6>
                         <ul className="text-md">
                         <li className="mb-2">
-                            <HashLink to="#" className="text-[#283618] hover:text-gray-900 hover:tracking-wider transition duration-250 ease-in-out">About</HashLink>
+                            <HashLink style={{ textDecoration: 'none' }} to="#" className="text-[#283618] hover:text-gray-900 hover:tracking-wider transition duration-250 ease-in-out">About</HashLink>
                         </li>
                         <li className="mb-2">
-                            <HashLink to="#" className="text-[#283618] hover:text-gray-900 hover:tracking-wider transition duration-250 ease-in-out">Services</HashLink>
+                            <HashLink style={{ textDecoration: 'none' }} to="#" className="text-[#283618] hover:text-gray-900 hover:tracking-wider transition duration-250 ease-in-out">Services</HashLink>
                         </li>
                         <li className="mb-2">
-                            <HashLink to="#" className="text-[#283618] hover:text-gray-900 hover:tracking-wider transition duration-250 ease-in-out">Contact</HashLink>
+                            <HashLink style={{ textDecoration: 'none' }} to="#" className="text-[#283618] hover:text-gray-900 hover:tracking-wider transition duration-250 ease-in-out">Contact</HashLink>
                         </li>                            
                         </ul>
                     </div>
@@ -40,13 +40,13 @@ const Footer = () => {
                         <h6 className="text-[#283618] text-xl font-bold mb-4">OUR SERVICES</h6>
                         <ul className="text-md">
                         <li className="mb-2">
-                            <Link to="#" className="text-[#283618] hover:text-gray-900 hover:tracking-wider transition duration-250 ease-in-out">Email Scam detection</Link>
+                            <Link style={{ textDecoration: 'none' }} to="#" className="text-[#283618] hover:text-gray-900 hover:tracking-wider transition duration-250 ease-in-out">Email Scam detection</Link>
                         </li>
                         <li className="mb-2">
-                            <Link to="#" className="text-[#283618] hover:text-gray-900 hover:tracking-wider transition duration-250 ease-in-out">Text scam detection (coming soon)</Link>
+                            <Link style={{ textDecoration: 'none' }} to="#" className="text-[#283618] hover:text-gray-900 hover:tracking-wider transition duration-250 ease-in-out">Text scam detection (coming soon)</Link>
                         </li>
                         <li className="mb-2">
-                            <Link to="#" className="text-[#283618] hover:text-gray-900 hover:tracking-wider transition duration-250 ease-in-out">Scam news (coming soon) </Link>
+                            <Link style={{ textDecoration: 'none' }} to="#" className="text-[#283618] hover:text-gray-900 hover:tracking-wider transition duration-250 ease-in-out">Scam news (coming soon) </Link>
                         </li>
                         
                         </ul>
@@ -64,6 +64,7 @@ const Footer = () => {
                     <HashLink
                         to="#"
                         className=" hover:text-gray-900"
+                        
                     >
                         Team 36
                     </HashLink>. All rights reserved.

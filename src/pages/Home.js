@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 //import Clients from '../components/Clients';
 //import Cta from '../components/Cta';
 import Footer from '../components/Footer';
@@ -9,6 +9,9 @@ import Services from '../components/Services';
 
 
 const Home = () => {
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
     return (
         <>
             <Hero />
