@@ -1,6 +1,6 @@
 import img from '../../images/copy-paste.png'; 
 import img2 from '../../images/searching tool.png';
-import img3 from '../../images/Emergency siren icon_ Hazard warning light, ambulance route alarm.jpeg';
+import img3 from '../../images/Emergency siren icon_ Hazard warning light, ambulance route alarm.png';
 
 function SteptoDetect() {
     return (
