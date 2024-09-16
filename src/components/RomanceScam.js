@@ -1,4 +1,4 @@
-import React from 'react';
+import React , {useEffect} from 'react';
 import ScamPage from './ScamPage';
 import RomanceImage1 from '../images/Romance_Scam_eg1.png';
 import RomanceImage2 from '../images/Romance_Scam_eg2_cropped.png';
@@ -48,6 +48,9 @@ const protectYourselfSection =[
 ];
 
 const RomanceScamPage = () => {
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
     return (
         <ScamPage
             title="Romance Scams"

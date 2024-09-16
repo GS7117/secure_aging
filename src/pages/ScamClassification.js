@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import NavBar from '../components/Navbar/NavBar';
 import Footer from '../components/Footer';
 import ScamClassificationHero from '../components/ScamClassificationHero';
@@ -11,6 +11,9 @@ import ScamTypes from '../components/ScamTypes';
 
 
 const ScamClassification = () => {
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
     return (
         <>
             <NavBar />

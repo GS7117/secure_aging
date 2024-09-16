@@ -22,6 +22,9 @@ import SteptoDetect from '../../components/EduComponent/StepstoDetect';
 
 const EmailDetection = () => {
 
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
     const [textInput, setTextInput] = useState('');
     const [result, setResult] = useState(null);
     const [loading, setLoading] = useState(false);

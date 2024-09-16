@@ -19,14 +19,14 @@ const Services = () => {
             img: img2,
             title: "Scam Type",
             text: "We categorize common scam types like phishing, and online fraud, helping you avoid potential risks.",
-            link: "/scam-classification",
+            link: "/scam-classification#top",
             buttonLabel: "Learn More"
         },
         {
             img: img3,
             title: "Scam Detection Tool ",
             text: "We have created an optimized high-quality, scam detection tool for people to help them identify potential scams.",
-            link: "/detection",
+            link: "/detection#top",
             buttonLabel: "Learn More"
         },
         {
@@ -72,7 +72,15 @@ const Services = () => {
                 </div>
             </section>
 
-            {/* <section>
+            
+        </div>
+    );
+}
+
+export default Services;
+
+
+/* <section>
                 <div className="m-auto max-w-6xl p-2 md:p-12 h-5/6">
                     <div className="flex flex-col-reverse lg:flex-row py-8 justify-between lg:text-left" data-aos="zoom-out">
                         <div className="lg:w-1/2 flex flex-col lg:mx-4 justify-center">
@@ -104,9 +112,4 @@ const Services = () => {
                         </div>
                     </div>
                 </div>
-            </section> */}
-        </div>
-    );
-}
-
-export default Services;
+            </section> */

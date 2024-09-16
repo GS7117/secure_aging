@@ -24,6 +24,7 @@ import TextDetection from './pages/scamdetetction/TextDetection';
 import URLDetection from './pages/scamdetetction/URLDetection';
 
 
+
 function App() {
   useEffect(() => {
     const aos_init = () => {

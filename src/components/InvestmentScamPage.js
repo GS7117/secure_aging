@@ -1,4 +1,4 @@
-import React from 'react';
+import React , {useEffect} from 'react';
 import ScamPage from './ScamPage';
 import InvestmentImage1 from '../images/InvestmentScam_eg1.png';
 import InvestmentImage2 from '../images/InvestmentScam_eg2.png';
@@ -52,6 +52,9 @@ const protectYourselfSection =[
 
 
 const InvestmentScamPage = () => {
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
     return (
         <ScamPage
             title="Investment Scams"

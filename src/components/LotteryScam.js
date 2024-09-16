@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import ScamPage from './ScamPage';
 import lotteryImage1 from '../images/LotteryScam_eg1.png';
 import lotteryImage2 from '../images/LotteryScam_eg2.png';
@@ -49,6 +49,9 @@ const protectYourselfSection =[
 ];
 
 const LotteryScamPage = () => {
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
     return (
         <ScamPage
             title="Lottery Scams"

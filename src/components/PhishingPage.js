@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import ScamPage from './ScamPage';
 import phishingImage1 from '../images/Phishing_eg1.png';
 import phishingImage2 from '../images/Phishing_eg2.png';
@@ -45,6 +45,9 @@ const protectYourselfSection =[
 
 
 const PhishingPage = () => {
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
     return (
         <ScamPage
             title="Phishing Scams"
