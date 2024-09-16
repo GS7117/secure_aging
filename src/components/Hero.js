@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import NavBar from '../components/Navbar/NavBar';
 import { Link as ScrollLink } from 'react-scroll';
 // import heroImg from '../images/web-dev.svg';
-import seniorImg from '../images/5 Best Smartphones for Seniors 2023.jpeg'
+import seniorImg from '../images/5 Best Smartphones for Seniors 2023 1.png'
 
 
 const Hero = () => {

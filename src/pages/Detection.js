@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import img from '../images/3 Multi-Purpose Sales Email Templates that Work.jpeg'; 
+import img from '../images/3 Multi-Purpose Sales Email Templates that Work.png'; 
 import img2 from '../images/Free Vector _ Human hand holding mobile phone with text messages.jpeg';
 import img3 from '../images/Boost Conversions with URL Shorteners_ A Comprehensive Guide.jpeg';
 // import img4 from '../images/Subject copy.png';

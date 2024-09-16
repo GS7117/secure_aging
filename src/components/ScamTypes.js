@@ -1,9 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import phishingImg from '../images/Phishing.jpg'; 
-import investmentImg from '../images/investment_scam.jpg'; 
-import lotteryImg from '../images/lottery_scam.jpg';
-import romanceImg from '../images/romance_scam.jpg';
+import phishingImg from '../images/Phising.png'; 
+import investmentImg from '../images/investment_scam.png'; 
+import lotteryImg from '../images/lottery_scam.png';
+import romanceImg from '../images/romance_scam.png';
 
 const ScamTypes = () => {
     const scamTypes = [
