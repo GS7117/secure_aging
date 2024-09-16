@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
-import img from '../images/3 Multi-Purpose Sales Email Templates that Work.png'; 
-import img2 from '../images/Free Vector _ Human hand holding mobile phone with text messages.png';
-import img3 from '../images/Boost Conversions with URL Shorteners_ A Comprehensive Guide.png';
+import img from '../images/image1.png'; 
+import img2 from '../images/image2.png';
+import img3 from '../images/image3.png';
 // import img4 from '../images/Subject copy.png';
 import NavBar from '../components/Navbar/NavBar';
 import Footer from '../components/Footer';
