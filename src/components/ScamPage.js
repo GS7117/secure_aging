@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import NavBar from './Navbar/NavBar';
 import ImageModal from './ImageModal';
 import Footer from './Footer';
+import { Link } from 'react-router-dom';
 
-const ScamPage = ({ title, description, sections, protectSection }) => {
+const ScamPage = ({ title, description,titleImg, sections, protectSection, prevLink, nextLink, prevLabel, nextLabel }) => {
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const [selectedImage, setSelectedImage] = useState({ src: '', alt: '' });
 
@@ -31,6 +32,9 @@ const ScamPage = ({ title, description, sections, protectSection }) => {
                             {description}
                         </div>
                     </div>
+                    <div className="flex lg:justify-end w-full lg:w-1/2" data-aos="fade-up" data-aos-delay="700">
+                            <img src={titleImg} alt="Scam Classification" className="rounded-t float-right duration-1000 h-full w-3/5" />
+                        </div>
                 </div>
             </div>
             <main className="scam-page py-12" style={{ backgroundColor: '#CAD9A2' }}>
@@ -49,18 +53,28 @@ const ScamPage = ({ title, description, sections, protectSection }) => {
                         </div>
                     ))}
                 </div>
+                <div className="flex justify-between px-8 mt-8">
+                    <Link to={prevLink} className="text-green-700 hover:text-white inline-flex items-center justify-left px-4 py-2 mx-2">
+                        &larr; {prevLabel}
+                    </Link>
+                    <Link to={nextLink} className="text-green-700 hover:text-white inline-flex items-center justify-right px-4 py-2 mx-2">
+                        {nextLabel} &rarr;
+                    </Link>
+                </div>
             </main>
             <div data-aos="zoom-in" data-aos-delay="200">
                 {protectSection}
             </div>
+            
+                
+                
+            
             <footer className="text-center py-6">
                 <a href="#hero" className="" style={{ color: '#A9F285' }}>Back to top</a>
             </footer>
             <ImageModal isOpen={modalIsOpen} onRequestClose={closeModal} imageSrc={selectedImage.src} imageAlt={selectedImage.alt} />
             <Footer />
         </div>
-
-        
     );
 }
 

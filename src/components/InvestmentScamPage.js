@@ -1,5 +1,6 @@
 import React , {useEffect} from 'react';
 import ScamPage from './ScamPage';
+import PageImg from '../images/Investment_scam_tiltleImg.png';
 import InvestmentImage1 from '../images/InvestmentScam_eg1.png';
 import InvestmentImage2 from '../images/InvestmentScam_eg2.png';
 import InvestmentImage3 from '../images/InvestmentScam_eg1_redbox.png';
@@ -59,8 +60,13 @@ const InvestmentScamPage = () => {
         <ScamPage
             title="Investment Scams"
             description="Investment scams are a type of online fraud where scammers trick victims into investing in fake investment opportunities, promising high returns with low risk. They often use fake websites, social media or emails to pretend they are legitimate."
+            titleImg = {PageImg}
             sections={investmentSections}
             protectSection={protectYourselfSection}
+            prevLink="/phishingpage" 
+            nextLink="/lottery-scam-page"
+            prevLabel="Phishing Scam" 
+            nextLabel="Lottery Scam"
         />
     );
 }

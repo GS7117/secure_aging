@@ -1,5 +1,6 @@
 import React, {useEffect} from 'react';
 import ScamPage from './ScamPage';
+import PageImg from '../images/phishing_page_img.png';
 import phishingImage1 from '../images/Phishing_eg1.png';
 import phishingImage2 from '../images/Phishing_eg2.png';
 import phishingImage3 from '../images/Phishing1_redbox.png';
@@ -52,8 +53,13 @@ const PhishingPage = () => {
         <ScamPage
             title="Phishing Scams"
             description="Our platform raises awareness by offering a comprehensive database of past and ongoing scams, delivering timely news updates, and connecting users with personal security assistance."
+            titleImg = {PageImg}
             sections={phishingSections}
             protectSection={protectYourselfSection}
+            prevLink="/scam-classification" // Link to the previous page or scam
+            nextLink="/investment-scam-page"
+            prevLabel="Scam Classifications" 
+            nextLabel="Investment Scam"
         />
     );
 }

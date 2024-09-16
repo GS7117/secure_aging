@@ -1,5 +1,6 @@
 import React , {useEffect} from 'react';
 import ScamPage from './ScamPage';
+import PageImg from '../images/romance_page_titleImg.png';
 import RomanceImage1 from '../images/Romance_Scam_eg1.png';
 import RomanceImage2 from '../images/Romance_Scam_eg2_cropped.png';
 import RomanceImage3 from '../images/Romance_Scam_eg1_redbox.png';
@@ -55,8 +56,13 @@ const RomanceScamPage = () => {
         <ScamPage
             title="Romance Scams"
             description="In romance scams, scammers create fake profiles on dating sites or social media to develop an emotional relationship with their targets. They build trust over time and then fabricate a crisis to ask victims for money for emergencies such as medical bills or travel expenses."
+            titleImg = {PageImg}
             sections={romanceSections}
             protectSection={protectYourselfSection}
+            prevLink="/lottery-scam-page" 
+            nextLink="/scam-classification"
+            prevLabel="Romance Scam" 
+            nextLabel="Scam Classifications"
         />
         
         

@@ -1,5 +1,6 @@
 import React, {useEffect} from 'react';
 import ScamPage from './ScamPage';
+import PageImg from '../images/lottery_scam_titleImg.png'; 
 import lotteryImage1 from '../images/LotteryScam_eg1.png';
 import lotteryImage2 from '../images/LotteryScam_eg2.png';
 import lotteryImage3 from '../images/LotteryScam_eg1_redbox.png';
@@ -56,8 +57,13 @@ const LotteryScamPage = () => {
         <ScamPage
             title="Lottery Scams"
             description="Lottery or prize scams are when scammers tell you that you've won a large sum of money or a valuable prize, even if you never entered a contest. They usually ask you to pay a fee or provide personal information in order to claim your prize."
+            titleImg = {PageImg}
             sections={lotterySections}
             protectSection={protectYourselfSection}
+            prevLink="/investment-scam-page" 
+            nextLink="/romance-scams"
+            prevLabel="Investment Scam" 
+            nextLabel="Romance Scam"
         />
     );
 }
