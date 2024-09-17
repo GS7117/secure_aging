@@ -15,7 +15,7 @@ const Footer = () => {
                     {/* 1st block */}
                     <div className="col-span-12 lg:col-span-4">
                         
-                        <img src={Logo} alt='Logo' />
+                        <img class="w-64 h-auto" src={Logo} alt='Logo' />
                         
                     </div>
 
