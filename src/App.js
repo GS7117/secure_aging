@@ -5,7 +5,8 @@ import './index.css';
 import {
   BrowserRouter as Router,
   Routes,
-  Route
+  Route,
+  Navigate
 } from 'react-router-dom';
 // All pages
 import Home from './pages/Home';
@@ -19,24 +20,18 @@ import LotteryScam from './components/LotteryScam';
 import RomanceScamPage from './components/RomanceScam';
 import {useDocTitle} from './components/CustomHook';
 import ScrollToTop from './components/ScrollToTop';
-import EmailDetection from './pages/scamdetetction/EmailDetection';
-import TextDetection from './pages/scamdetetction/TextDetection';
-import URLDetection from './pages/scamdetetction/URLDetection';
-
+import EmailDetection from './pages/scamdetection/EmailDetection';
+import TextDetection from './pages/scamdetection/TextDetection';
+import URLDetection from './pages/scamdetection/URLDetection';
+import ScamStats from './pages/scamstats/ScamStats';
 
 
 function App() {
   useEffect(() => {
-    const aos_init = () => {
-      AOS.init({
-        once: true,
-        duration: 1000,
-        easing: 'ease-out-cubic',
-      });
-    }
-
-    window.addEventListener('load', () => {
-      aos_init();
+    AOS.init({
+      once: true,
+      duration: 1000,
+      easing: 'ease-out-cubic',
     });
   }, []);
 
@@ -59,12 +54,16 @@ function App() {
             <Route path="/email" element={<EmailDetection />} /> 
             <Route path="/text" element={<TextDetection />} /> 
             <Route path="/url" element={<URLDetection />} /> 
+            <Route path="/scamstats" element={<ScamStats />} />
+
+            {/* 新增的 /iteration1 路由重定向 */}
+            <Route path="/iteration1" element={<Navigate to="https://iteration1.secureaging.software" replace />} />
+
           </Routes>
         </ScrollToTop>
       </Router>
     </>
   );
 }
-
 
 export default App;

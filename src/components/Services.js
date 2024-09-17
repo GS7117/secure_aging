@@ -11,8 +11,8 @@ const Services = () => {
             img: img,
             title: "Scam Statistics",
             text: "We provide real-time scam statistics, offering insights into trends and affected demographics for awareness.",
-            link: "",
-            buttonLabel: "Coming Soon"
+            link: "/scamstats",
+            buttonLabel: "Learn More"
         },
         {
             img: img2,

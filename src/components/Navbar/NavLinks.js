@@ -10,6 +10,9 @@ const NavLinks = () => {
             <HashLink style={{ textDecoration: 'none' }} className="px-4 font-extrabold text-gray-500 hover:text-green-900" smooth to="/#services">
                 Scam Awareness
             </HashLink>
+            <HashLink style={{ textDecoration: 'none' }} className="px-4 font-extrabold text-gray-500 hover:text-green-900" smooth to="/scamstats">
+                Scam Statistics
+            </HashLink>
             <HashLink style={{ textDecoration: 'none' }} className="px-4 font-extrabold text-gray-500 hover:text-green-900" to="/detection">
                 Scam Detection
             </HashLink>

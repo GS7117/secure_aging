@@ -1,0 +1,228 @@
+/* Import Newsreader Font */
+@import url('https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&display=swap');
+
+/* Global Scam Stats Container */
+.scam-stats-container {
+    background-color: #f0f4f8;
+    padding: 40px 20px;
+    text-align: center;
+    font-family: 'Newsreader', serif;
+    /* Updated to Newsreader font */
+    border-radius: 10px;
+}
+
+/* Header Section */
+.header-section {
+    margin-bottom: 40px;
+}
+
+.state-label {
+    font-size: 18px;
+    /* Make the text larger */
+    font-weight: bold;
+    /* Make the text bold */
+    color: white;
+    /* Set text color to white */
+    background: none;
+    /* Remove background color */
+    border: none;
+    /* Remove any borders */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+    /* Add shadow to make the white text visible on different map colors */
+    pointer-events: none;
+    /* Make the label unclickable */
+    padding: 0;
+    /* Remove any padding */
+    margin: 0;
+    /* Remove any margin */
+    box-shadow: none;
+    /* Remove any box shadow */
+    background-color: transparent !important;
+    /* Ensure no background at all */
+    opacity: 1;
+    /* Ensure full opacity */
+}
+
+
+
+.header-section h1 {
+    font-size: 3rem;
+    font-weight: bold;
+    color: #243b53;
+    margin-bottom: 10px;
+    font-family: 'Newsreader', serif;
+    /* Updated to Newsreader font */
+}
+
+.header-section p {
+    font-size: 1.25rem;
+    color: #5f6c7b;
+    margin-bottom: 20px;
+    font-family: 'Newsreader', serif;
+    /* Updated to Newsreader font */
+}
+
+/* State Selection Section */
+.state-selection {
+    font-size: 1.75rem;
+    color: #243b53;
+    margin-bottom: 40px;
+    text-align: left;
+    font-family: 'Newsreader', serif;
+    /* Updated to Newsreader font */
+}
+
+.state-selection h2 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #1e7373;
+    font-family: 'Newsreader', serif;
+    /* Updated to Newsreader font */
+}
+
+.state-selection p {
+    font-size: 1.5rem;
+    color: #5f6c7b;
+    margin-bottom: 20px;
+    font-family: 'Newsreader', serif;
+    /* Updated to Newsreader font */
+}
+
+.state-selection ul {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 20px;
+    font-family: 'Newsreader', serif;
+    /* Updated to Newsreader font */
+}
+
+.state-selection ul li {
+    font-size: 1.5rem;
+    color: #243b53;
+    margin-bottom: 10px;
+    font-family: 'Newsreader', serif;
+    /* Updated to Newsreader font */
+}
+
+.state-selection ul li strong {
+    font-size: 1.75rem;
+    color: #1e7373;
+    font-family: 'Newsreader', serif;
+    /* Updated to Newsreader font */
+}
+
+.state-selection .next-button {
+    font-size: 1.25rem;
+    color: #243b53;
+    text-decoration: underline;
+    cursor: pointer;
+    margin-top: 20px;
+    display: inline-block;
+    font-family: 'Newsreader', serif;
+    /* Updated to Newsreader font */
+}
+
+/* Map Section */
+.map-section {
+    margin-top: 40px;
+    padding: 20px;
+    font-family: 'Newsreader', serif;
+    /* Updated to Newsreader font */
+}
+
+.map-container {
+    height: 400px;
+    width: 100%;
+    margin: 0 auto;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    font-family: 'Newsreader', serif;
+    /* Updated to Newsreader font */
+}
+
+/* Scam Stats Table */
+.scam-stats {
+    margin-top: 20px;
+    font-family: 'Newsreader', serif;
+    /* Updated to Newsreader font */
+}
+
+.scam-stats table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 30px;
+}
+
+.scam-stats th,
+.scam-stats td {
+    border: 1px solid #ddd;
+    padding: 12px;
+    font-size: 1rem;
+}
+
+.scam-stats th {
+    background-color: #f2f2f2;
+    text-align: left;
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: #243b53;
+    font-family: 'Newsreader', serif;
+    /* Updated to Newsreader font */
+}
+
+.scam-stats td {
+    text-align: left;
+    color: #5f6c7b;
+    font-family: 'Newsreader', serif;
+    /* Updated to Newsreader font */
+}
+
+/* Tab Section */
+.tab {
+    padding: 10px 20px;
+    margin: 0 5px;
+    cursor: pointer;
+    background-color: #f5f5f5;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1.25rem;
+    color: #243b53;
+    transition: background-color 0.3s ease;
+    font-family: 'Newsreader', serif;
+    /* Updated to Newsreader font */
+}
+
+.tab:hover {
+    background-color: #dfe9e9;
+}
+
+.tab.active {
+    background-color: #1e7373;
+    color: white;
+    border: 1px solid #1e7373;
+}
+
+/* General Text Styles */
+p {
+    font-size: 1.25rem;
+    color: #5f6c7b;
+    font-family: 'Newsreader', serif;
+    /* Updated to Newsreader font */
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .header-section h1 {
+        font-size: 2.25rem;
+    }
+
+    .state-selection h2 {
+        font-size: 2rem;
+    }
+
+    .map-container {
+        height: 300px;
+        /* Smaller map for mobile */
+    }
+}
