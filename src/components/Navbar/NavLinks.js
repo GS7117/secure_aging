@@ -24,6 +24,9 @@ const NavLinks = () => {
             <HashLink style={{ textDecoration: 'none' }} className="px-4 font-extrabold text-gray-500 hover:text-green-900" smooth to="/">
                 Home Page
             </HashLink>
+            <HashLink style={{ textDecoration: 'none' }} className="px-4 font-extrabold text-gray-500 hover:text-green-900" to="/detection">
+                Scam Detection
+            </HashLink>
             <div className="relative inline-block" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
                 <button className="px-4 font-extrabold text-gray-500 hover:text-green-900 focus:outline-none">
                     Scam Awareness
@@ -43,9 +46,7 @@ const NavLinks = () => {
                     </ul>
                 )}
             </div>
-            <HashLink style={{ textDecoration: 'none' }} className="px-4 font-extrabold text-gray-500 hover:text-green-900" to="/detection">
-                Scam Detection
-            </HashLink>
+            
         </div>
     );
 };

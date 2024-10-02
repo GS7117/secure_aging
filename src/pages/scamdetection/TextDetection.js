@@ -19,6 +19,7 @@ import Col from 'react-bootstrap/Col';
 import './ScamDetection.css';  // 自定义样式
 import RemoveSMS from '../../components/EduComponent/RemoveSMS';
 import SteptoDetect from '../../components/EduComponent/StepstoDetect';
+import Modal from '../../components/Modal';
 
 const EmailDetection = () => {
     useEffect(() => {
@@ -28,6 +29,7 @@ const EmailDetection = () => {
     const [textInput, setTextInput] = useState('');
     const [result, setResult] = useState(null);
     const [loading, setLoading] = useState(false);
+    const [isModalOpen, setIsModalOpen] = useState(false);
     const resultRef = useRef(null);
 
 
@@ -47,12 +49,14 @@ const EmailDetection = () => {
                 notScamPercentage,
                 ScamPercentage
             });
+            setIsModalOpen(true);
         } catch (error) {
             setResult({
                 DetectionResult: 'Error',
                 notScamPercentage: 'N/A',
                 ScamPercentage: 'N/A'
             });
+            setIsModalOpen(true); 
         } finally {
             setLoading(false);
         }
@@ -260,19 +264,21 @@ const EmailDetection = () => {
                     </div>
 
                     {/* Detection Result */}
-                    <div ref={resultRef} className="flex-col justify-center items-center  mt-16 mb-4" style={{ display: 'flex', justifyContent: 'center' }}>
-                        {result && (
-                            result.DetectionResult === 'High risk' ? (
-                                <HighRiskAlert percentage={result.ScamPercentage} />
-                            ) : result.DetectionResult === 'Medium risk' ? (
-                                <MediumRiskAlert percentage={result.ScamPercentage} />
-                            ) : result.DetectionResult === 'Low risk' ? (
-                                <LowRiskAlert percentage={result.notScamPercentage} />
-                            ) : (
-                                <ErrorAlert />
-                            )
-                        )}
-                    </div>
+                    <Modal show={isModalOpen} onClose={() => setIsModalOpen(false)} title="Detection Result">
+                        <div ref={resultRef} className="flex-col justify-center items-center  mt-16 mb-4" style={{ display: 'flex', justifyContent: 'center' }}>
+                            {result && (
+                                result.DetectionResult === 'High risk' ? (
+                                    <HighRiskAlert percentage={result.ScamPercentage} />
+                                ) : result.DetectionResult === 'Medium risk' ? (
+                                    <MediumRiskAlert percentage={result.ScamPercentage} />
+                                ) : result.DetectionResult === 'Low risk' ? (
+                                    <LowRiskAlert percentage={result.notScamPercentage} />
+                                ) : (
+                                    <ErrorAlert />
+                                )
+                            )}
+                        </div>
+                    </Modal>    
 
                     {/* Check another SMS */}
                     <Link to="/text#textdetect" className=" flex items-center justify-center text-lg  rounded-xl"

@@ -19,6 +19,7 @@ import Col from 'react-bootstrap/Col';
 import './ScamDetection.css';  // 自定义样式
 import RemoveEmail from '../../components/EduComponent/RemoveEmail';
 import SteptoDetect from '../../components/EduComponent/StepstoDetect';
+import Modal from '../../components/Modal';
 
 const EmailDetection = () => {
 
@@ -28,7 +29,12 @@ const EmailDetection = () => {
     const [textInput, setTextInput] = useState('');
     const [result, setResult] = useState(null);
     const [loading, setLoading] = useState(false);
+    const [isModalOpen, setIsModalOpen] = useState(false);
     const resultRef = useRef(null);
+    const handleNextStep = () => {
+        // Define the actions to be taken for the next step
+        console.log("Next step clicked");
+    };
 
 
     const API_URL = 'https://v393yif444.execute-api.us-east-1.amazonaws.com/stage1/emailDetect';
@@ -39,24 +45,27 @@ const EmailDetection = () => {
             const response = await axios.post(API_URL, {
                 text: textInput
             });
-
+    
             const { DetectionResult, notScamPercentage, ScamPercentage } = response.data;
-
+    
             setResult({
                 DetectionResult,
                 notScamPercentage,
                 ScamPercentage
             });
+            setIsModalOpen(true); // Open the modal when result is received
         } catch (error) {
             setResult({
                 DetectionResult: 'Error',
                 notScamPercentage: 'N/A',
                 ScamPercentage: 'N/A'
             });
+            setIsModalOpen(true); // Open the modal even on error
         } finally {
             setLoading(false);
         }
     };
+    
 
     const handleInputChange = (event) => {
         setTextInput(event.target.value);
@@ -88,6 +97,7 @@ const EmailDetection = () => {
             }
         }, 100);  // A short delay to ensure the new page elements have rendered
     };
+
 
 
     return (
@@ -265,27 +275,35 @@ const EmailDetection = () => {
                     </div>
 
                     {/* Detection Result */}
-                    <div ref={resultRef} className="flex-col justify-center items-center  mt-16 mb-4" style={{ display: 'flex', justifyContent: 'center' }}>
-                        <>
+                    <Modal show={isModalOpen} onClose={() => setIsModalOpen(false)} title="Detection Result">
+                        <div ref={resultRef} className="flex flex-col justify-center items-center my-4">
                             {result && (
                                 result.DetectionResult === 'High risk' ? (
-                                    <HighRiskAlert percentage={result.ScamPercentage} />
+                                    <>
+                                        <HighRiskAlert percentage={result.ScamPercentage} />
+                                        <button className="button-next-step bg-gray-500 text-white px-4 py-2 rounded mr-2" onClick={handleNextStep}>Next Step</button>
+                                        
+                                    </>
                                 ) : result.DetectionResult === 'Medium risk' ? (
-                                    <MediumRiskAlert percentage={result.ScamPercentage} />
+                                    <>
+                                        <MediumRiskAlert percentage={result.ScamPercentage} />
+                                        <button className="button-next-step bg-gray-500 text-white px-4 py-2 rounded mr-2" onClick={handleNextStep}>Next Step</button>
+                                        
+                                    </>
                                 ) : result.DetectionResult === 'Low risk' ? (
+                                    <>
                                     <LowRiskAlert percentage={result.notScamPercentage} />
+                                    
+                                    </>
                                 ) : (
                                     <ErrorAlert />
                                 )
                             )}
+                        </div>
+                        
+                    </Modal>
 
-                            {/* testing use */}
-                            {/* <HighRiskAlert />
-                            <MediumRiskAlert />
-                            <LowRiskAlert /> */}
-
-                        </>
-                    </div>
+                                        
 
 
 
@@ -311,9 +329,11 @@ const EmailDetection = () => {
                     </Link>
 
                     {/* Manage Email section */}
-                    <div className="flex-col justify-center items-center  my-8">
-                        <RemoveEmail />
-                    </div>
+                    {(result && (result.DetectionResult === 'High risk' || result.DetectionResult === 'Medium risk')) && (
+                        <div className="flex-col justify-center items-center my-8">
+                            <RemoveEmail />
+                        </div>
+                    )}
 
 
 
