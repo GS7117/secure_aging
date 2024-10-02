@@ -2,11 +2,11 @@
 import NavBar from '../../components/Navbar/NavBar';
 import Footer from '../../components/Footer';
 import React, { useRef, useState, useEffect } from 'react';
+
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import img4 from '../../images/Subject.png';
+import img4 from '../../images/http_1674969.png';
 
-import SMSPopup from '../../components/SMSPopup';
 import HighRiskAlert from '../../components/DetectAlert/HighRisk';
 import MediumRiskAlert from '../../components/DetectAlert/MediumRisk';
 import LowRiskAlert from '../../components/DetectAlert/LowRisk';
@@ -17,10 +17,10 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import './ScamDetection.css';  // 自定义样式
-import RemoveSMS from '../../components/EduComponent/RemoveSMS';
-import SteptoDetect from '../../components/EduComponent/StepstoDetect';
+import URLinfo from '../../components/EduComponent/URLinfo';
+import DetectionStep from '../../components/EduComponent/DetectionSteps';
 
-const URLDetection = () => {
+const URLDection = () => {
     useEffect(() => {
         window.scrollTo(0, 0);
     }, []);
@@ -95,69 +95,25 @@ const URLDetection = () => {
                 <NavBar />
             </div>
 
-            <div id='steptodetect' className="text-page-blue py-6" >
+            <div id='steptodetect' className="BG-URL-1 py-4" >
                 <section data-aos="zoom-in-down">
-                    <div className="my-4 py-4">
 
-                    </div>
+                    <div  >
 
-                    <div className="my-4 pt-4" >
-                        <h2 className="NRtextTiltle">Text Detection</h2>
-
-                        {/* <div className="NRtextText" style={{
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    margin: '0 auto', // Corrects centering
-                    marginLeft: '30px',
-                    marginRight: '30px'
-                }}>
-                Tool to help understand the content you receive is scam or not ...</div> */}
-
-                        <Link to="/text#emaildetect" className="button-blue hover:bg-blue-800 flex items-center justify-center px-6 py-2 my-4 text-lg shadow-xl rounded-xl"
-                            style={{ textDecoration: 'none', margin: '0 auto', maxWidth: '200px' }}
-                            onClick={() => handleNavigation('textdetect')}>
-                            Start Detection
-                            <svg className="w-4 h-4 ml-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                                <path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd"></path>
-                            </svg>
-                        </Link>
-
-                        <h2 className="NRtextTiltle">How it works ?</h2>
-
-
-
+                        <h2 className="NRtextTiltle pt-20">URL Detection</h2>
                         <div className="flex justify-center mx-12">
-                            <SteptoDetect />
-
+                            <DetectionStep />
                         </div>
-                        <br></br>
-                        <br></br>
-
-                        <div className="NRtextText" style={{
-                            display: 'flex',
-                            justifyContent: 'center',
-                            alignItems: 'center',
-                            margin: '0 auto', // Corrects centering
-                            marginLeft: '30px',
-                            marginRight: '30px'
-                        }}><p>
-                                if you need assistance on <strong>how to safely copy & paste</strong> the text content,<br></br>
-                                Click ‘view more’ </p></div>
-
-                        <div className="flex justify-center items-center ">
-                            < SMSPopup />
-                        </div>
-
 
                     </div>
                 </section>
+
             </div>
 
 
-            {/* Email detection */}
-            <div id='textdetect' className="flex justify-center items-center w-full py-12 lg:py-14 text-page-lightblue ">
-                <div className="container my-8 px-4 lg:px-20" data-aos="zoom-in" >
+            {/* URL detection */}
+            <div className="flex justify-center items-center w-full BG-URL-1 ">
+                <div className="container px-4 lg:px-20" data-aos="zoom-in" >
 
                     {/* image box */}
                     <div className="absolute w-full lg:w-2/6 px-8  rounded-2xl">
@@ -167,10 +123,10 @@ const URLDetection = () => {
                     </div>
 
 
-                    <div className="w-full lg:w-9/12 bg-white p-8 my-4 md:px-12 lg:px-0 lg:pl-32 lg:pr-16 rounded-2xl shadow-2xl ml-auto">
+                    <div className="w-full lg:w-9/12 bg-white p-8  md:px-12 lg:px-0 lg:pl-32 lg:pr-16 rounded-2xl shadow-2xl ml-auto">
                         <div className="flex">
-                            <h1 className="font-bold text-center lg:text-center text-blue-900 uppercase text-4xl">
-                                Please COPY & PASTE the text into the text box below:</h1>
+                            <h1 className="font-bold text-center lg:text-center text-blue-900 uppercase text-3xl">
+                                COPY & PASTE the URL Link in below:</h1>
                         </div>
 
                         {/* textbox */}
@@ -178,13 +134,13 @@ const URLDetection = () => {
                             <>
                                 <FloatingLabel
                                     controlId="floatingTextarea"
-                                    label="Paste your email content here"
+                                    label="Put the URL Link here"
                                     className="mb-3"
                                 >
                                     <Form.Control
                                         as="textarea"
-                                        placeholder="Leave a comment here"
-                                        style={{ height: '280px' }}
+                                        placeholder="Put the URL Link here"
+                                        style={{ height: '200px' }}
                                         value={textInput}  // Control the value with state
                                         onChange={handleInputChange}  // Update state on change
                                     />
@@ -197,8 +153,8 @@ const URLDetection = () => {
                         <Container>
                             <Row>
                                 <Col style={{ display: 'flex', justifyContent: 'flex-start' }}>
-                                    {/* Redirect to 'how it works' */}
-                                    <Link to="/text#textdetect" style={{
+                                    {/* Show result again */}
+                                    <Link to="/url" style={{
                                         color: '#283618',
                                         textDecoration: 'underline',
                                         border: 'none',  // Removes default button border
@@ -208,12 +164,7 @@ const URLDetection = () => {
                                         alignItems: 'center' // Aligns items in the button horizontally
                                     }}
                                         onClick={() => handleNavigation('steptodetect')}>
-                                        How it works
-
-                                        <svg className="ml-1 bi bi-arrow-up-short" width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16">
-                                            <path fillRule="evenodd" d="M8 12a.5.5 0 0 0 .5-.5V5.707l2.146 2.147a.5.5 0 0 0 .708-.708l-3-3a.5.5 0 0 0-.708 0l-3 3a.5.5 0 1 0 .708.708L7.5 5.707V11.5a.5.5 0 0 0 .5.5" />
-                                        </svg>
-
+                                        Previous Result
                                     </Link>
 
                                 </Col>
@@ -274,49 +225,38 @@ const URLDetection = () => {
                         )}
                     </div>
 
-                    {/* Check another SMS */}
-                    <Link to="/text#textdetect" className=" flex items-center justify-center text-lg  rounded-xl"
-                        style={{
-                            color: '#283618',
-                            textDecoration: 'underline',
-                            border: 'none',  // Removes default button border
-                            background: 'none',  // Removes default button background
-                            cursor: 'pointer',  // Makes it clear it's clickable
-                            display: 'flex',
-                            alignItems: 'center' // Aligns items in the button horizontally
-                        }} onClick={() => handleNavigation('textdetect')} >
-                        Check another SMS
 
-                        <svg className="ml-1 bi bi-arrow-up-short" width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16">
-                            <path fillRule="evenodd" d="M8 12a.5.5 0 0 0 .5-.5V5.707l2.146 2.147a.5.5 0 0 0 .708-.708l-3-3a.5.5 0 0 0-.708 0l-3 3a.5.5 0 1 0 .708.708L7.5 5.707V11.5a.5.5 0 0 0 .5.5" />
-                        </svg>
-
-                    </Link>
-
-                    {/* Manage Email section */}
-                    <div className="flex-col justify-center items-center  my-8">
-                        <RemoveSMS />
-                    </div>
-
-                    {/* Back to Top */}
-                    <Link to="/text" className=" flex items-center justify-center text-lg  rounded-xl"
-                        style={{
-                            color: '#283618',
-                            textDecoration: 'underline',
-                            border: 'none',  // Removes default button border
-                            background: 'none',  // Removes default button background
-                            cursor: 'pointer',  // Makes it clear it's clickable
-                            display: 'flex',
-                            alignItems: 'center' // Aligns items in the button horizontally
-                        }} onClick={() => handleNavigation('steptodetect')} >
-                        Back to Top
-
-                        <svg className="ml-1 bi bi-arrow-up-short" width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16">
-                            <path fillRule="evenodd" d="M8 12a.5.5 0 0 0 .5-.5V5.707l2.146 2.147a.5.5 0 0 0 .708-.708l-3-3a.5.5 0 0 0-.708 0l-3 3a.5.5 0 1 0 .708.708L7.5 5.707V11.5a.5.5 0 0 0 .5.5" />
-                        </svg>
-
-                    </Link>
                 </div>
+
+            </div>
+
+
+
+            <div id='URLinfo' className="BG-URL-2 py-4 ">
+                {/* URL Education page */}
+                <div className="flex-col justify-center items-center  my-8">
+                    <URLinfo />
+                </div>
+
+                {/* Back to Top */}
+                <Link to="/url" className=" flex items-center justify-center text-lg pb-4 rounded-xl"
+                    style={{
+                        color: '#283618',
+                        textDecoration: 'underline',
+                        border: 'none',  // Removes default button border
+                        background: 'none',  // Removes default button background
+                        cursor: 'pointer',  // Makes it clear it's clickable
+                        display: 'flex',
+                        alignItems: 'center' // Aligns items in the button horizontally
+                    }} onClick={() => handleNavigation('steptodetect')} >
+                    Check another URL
+
+                    <svg className="ml-1 bi bi-arrow-up-short" width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16">
+                        <path fillRule="evenodd" d="M8 12a.5.5 0 0 0 .5-.5V5.707l2.146 2.147a.5.5 0 0 0 .708-.708l-3-3a.5.5 0 0 0-.708 0l-3 3a.5.5 0 1 0 .708.708L7.5 5.707V11.5a.5.5 0 0 0 .5.5" />
+                    </svg>
+
+                </Link>
+
 
             </div>
 
@@ -328,4 +268,4 @@ const URLDetection = () => {
     )
 }
 
-export default URLDetection;
+export default URLDection;
