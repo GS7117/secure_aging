@@ -15,7 +15,7 @@ const Modal = ({ show, onClose, title, children }) => {
                 {children}
 
 
-                <div className="flex justify-end border-t pt-3">
+                {/* <div className="flex justify-end border-t pt-3">
                 <button
                     className="bg-gray-500 text-white px-4 py-2 rounded mr-2"
                     onClick={onClose}
@@ -23,7 +23,7 @@ const Modal = ({ show, onClose, title, children }) => {
                     
                     Close
                 </button>
-                 </div>
+                 </div> */}
             </div>
             
         </div>

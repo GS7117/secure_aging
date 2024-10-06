@@ -19,6 +19,7 @@ import Col from 'react-bootstrap/Col';
 import './ScamDetection.css';  // 自定义样式
 import URLinfo from '../../components/EduComponent/URLinfo';
 import DetectionStep from '../../components/EduComponent/DetectionSteps';
+import Modal from '../../components/Modal';
 
 const URLDection = () => {
     useEffect(() => {
@@ -29,6 +30,7 @@ const URLDection = () => {
     const [result, setResult] = useState(null);
     const [loading, setLoading] = useState(false);
     const resultRef = useRef(null);
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
 
     const API_URL = 'https://v393yif444.execute-api.us-east-1.amazonaws.com/stage1/smsDetect';
@@ -46,13 +48,14 @@ const URLDection = () => {
                 DetectionResult,
                 notScamPercentage,
                 ScamPercentage
-            });
+            });setIsModalOpen(true); 
         } catch (error) {
             setResult({
                 DetectionResult: 'Error',
                 notScamPercentage: 'N/A',
                 ScamPercentage: 'N/A'
             });
+            setIsModalOpen(true);
         } finally {
             setLoading(false);
         }
@@ -211,19 +214,31 @@ const URLDection = () => {
                     </div>
 
                     {/* Detection Result */}
-                    <div ref={resultRef} className="flex-col justify-center items-center  mt-16 mb-4" style={{ display: 'flex', justifyContent: 'center' }}>
-                        {result && (
-                            result.DetectionResult === 'High risk' ? (
-                                <HighRiskAlert percentage={result.ScamPercentage} />
-                            ) : result.DetectionResult === 'Medium risk' ? (
-                                <MediumRiskAlert percentage={result.ScamPercentage} />
-                            ) : result.DetectionResult === 'Low risk' ? (
-                                <LowRiskAlert percentage={result.notScamPercentage} />
-                            ) : (
-                                <ErrorAlert />
-                            )
-                        )}
-                    </div>
+                    <Modal show={isModalOpen} onClose={() => setIsModalOpen(false)} title="Detection Result">
+                        <div ref={resultRef} className="flex flex-col justify-center items-center my-4">
+                            {result && (
+                                result.DetectionResult === 'High risk' ? (
+                                    <>
+                                    <HighRiskAlert percentage={result.ScamPercentage} />
+                                    <button className="button-next-step bg-green-900 hover:bg-green-600 text-white my-4 px-4 py-2 rounded mr-2" onClick={() => setIsModalOpen(false)}>Next Step</button>
+                                    </>
+                                ) : result.DetectionResult === 'Medium risk' ? (
+                                    <>
+                                    <MediumRiskAlert percentage={result.ScamPercentage} />
+                                    <button className="button-next-step bg-green-900 hover:bg-green-600 text-white my-4 px-4 py-2 rounded mr-2" onClick={() => setIsModalOpen(false)}>Next Step</button>
+                                    
+                                    </>
+                                ) : result.DetectionResult === 'Low risk' ? (
+                                    <>
+                                    <LowRiskAlert percentage={result.notScamPercentage} />
+                                    <button className="bg-gray-500 text-white px-4 py-2 rounded mr-2 my-4 " onClick={() => setIsModalOpen(false)}>Close</button>
+                                    </>
+                                ) : (
+                                    <ErrorAlert />
+                                )
+                            )}
+                        </div>
+                    </Modal>
 
 
                 </div>
@@ -234,9 +249,11 @@ const URLDection = () => {
 
             <div id='URLinfo' className="BG-URL-2 py-4 ">
                 {/* URL Education page */}
-                <div className="flex-col justify-center items-center  my-8">
-                    <URLinfo />
-                </div>
+                {(result && (result.DetectionResult === 'High risk' || result.DetectionResult === 'Medium risk')) && (
+                    <div className="flex-col justify-center items-center  my-8">
+                        <URLinfo />
+                    </div>
+                )}
 
                 {/* Back to Top */}
                 <Link to="/url" className=" flex items-center justify-center text-lg pb-4 rounded-xl"

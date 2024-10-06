@@ -18,7 +18,8 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import './ScamDetection.css';  // 自定义样式
 import RemoveEmail from '../../components/EduComponent/RemoveEmail';
-import SteptoDetect from '../../components/EduComponent/StepstoDetect';
+// import SteptoDetect from '../../components/EduComponent/StepstoDetect';
+import DetectionStep from '../../components/EduComponent/DetectionSteps';
 import Modal from '../../components/Modal';
 
 const EmailDetection = () => {
@@ -31,10 +32,7 @@ const EmailDetection = () => {
     const [loading, setLoading] = useState(false);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const resultRef = useRef(null);
-    const handleNextStep = () => {
-        // Define the actions to be taken for the next step
-        console.log("Next step clicked");
-    };
+   
 
 
     const API_URL = 'https://v393yif444.execute-api.us-east-1.amazonaws.com/stage1/emailDetect';
@@ -115,6 +113,9 @@ const EmailDetection = () => {
 
                     <div className="my-4 pt-4" id='portfolio'>
                         <h2 className="NRemailTiltle">Email Detection</h2>
+                        <div className="flex justify-center mx-12">
+                            <DetectionStep />
+                        </div>
 
                         {/* <div className="NRemailText" style={{
                     display: 'flex',
@@ -127,24 +128,24 @@ const EmailDetection = () => {
                 }}>
                 Tool to help understand the content you receive is scam or not ...</div> */}
 
-                        <Link to="/email#emaildetect" className="button-green hover:bg-green-600 flex items-center justify-center px-6 py-2 my-4 text-lg shadow-xl rounded-xl"
+                        {/* <Link to="/email#emaildetect" className="button-green hover:bg-green-600 flex items-center justify-center px-6 py-2 my-4 text-lg shadow-xl rounded-xl"
                             style={{ textDecoration: 'none', margin: '0 auto', maxWidth: '200px' }}
                             onClick={() => handleNavigation('emaildetect')}>
                             Start Detection
                             <svg className="w-4 h-4 ml-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                                 <path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd"></path>
                             </svg>
-                        </Link>
+                        </Link> */}
 
-                        <h2 className="NRemailTiltle">How it works ?</h2>
+                        {/* <h2 className="NRemailTiltle">How it works ?</h2> */}
 
 
 
-                        <div className="flex justify-center mx-12">
+                        {/* <div className="flex justify-center mx-12">
                             <SteptoDetect />
 
                         </div>
-                        <br></br>
+                        <br></br> */}
 
                         <div className="NRemailText" style={{
                             display: 'flex',
@@ -154,14 +155,15 @@ const EmailDetection = () => {
                             marginLeft: '30px',
                             marginRight: '30px'
                         }}>
-                            <p>
+                            {/* <p>
                                 if you need assistance on <strong>how to safely copy & paste</strong> the text content,<br></br>
-                                Click ‘view more’ </p></div>
+                                Click ‘view more’ </p> */}
+                                </div>
 
                         {/* copy paste popup window */}
-                        <div className="flex justify-center items-center ">
+                        {/* <div className="flex justify-center items-center ">
                             < EmailPopup />
-                        </div>
+                        </div> */}
 
                     </div>
                 </section>
@@ -281,18 +283,19 @@ const EmailDetection = () => {
                                 result.DetectionResult === 'High risk' ? (
                                     <>
                                         <HighRiskAlert percentage={result.ScamPercentage} />
-                                        <button className="button-next-step bg-gray-500 text-white px-4 py-2 rounded mr-2" onClick={handleNextStep}>Next Step</button>
+                                        <button className="button-next-step bg-green-900 hover:bg-green-600 text-white my-4 px-4 py-2 rounded mr-2" onClick={() => setIsModalOpen(false)}>Next Step</button>
                                         
                                     </>
                                 ) : result.DetectionResult === 'Medium risk' ? (
                                     <>
                                         <MediumRiskAlert percentage={result.ScamPercentage} />
-                                        <button className="button-next-step bg-gray-500 text-white px-4 py-2 rounded mr-2" onClick={handleNextStep}>Next Step</button>
+                                        <button className="button-next-step bg-green-900 hover:bg-green-600 text-white my-4 px-4 py-2 rounded mr-2" onClick={() => setIsModalOpen(false)}>Next Step</button>
                                         
                                     </>
                                 ) : result.DetectionResult === 'Low risk' ? (
                                     <>
                                     <LowRiskAlert percentage={result.notScamPercentage} />
+                                    <button className="bg-gray-500 text-white px-4 py-2 rounded mr-2 my-4 " onClick={() => setIsModalOpen(false)}>Close</button>
                                     
                                     </>
                                 ) : (

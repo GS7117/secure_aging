@@ -18,7 +18,8 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import './ScamDetection.css';  // 自定义样式
 import RemoveSMS from '../../components/EduComponent/RemoveSMS';
-import SteptoDetect from '../../components/EduComponent/StepstoDetect';
+//import SteptoDetect from '../../components/EduComponent/StepstoDetect';
+import DetectionStep from '../../components/EduComponent/DetectionSteps';
 import Modal from '../../components/Modal';
 
 const EmailDetection = () => {
@@ -107,6 +108,9 @@ const EmailDetection = () => {
 
                     <div className="my-4 pt-4" >
                         <h2 className="NRtextTiltle">Text Detection</h2>
+                        <div className="flex justify-center mx-12">
+                            <DetectionStep />
+                        </div>
 
                         {/* <div className="NRtextText" style={{
                     display: 'flex',
@@ -118,15 +122,15 @@ const EmailDetection = () => {
                 }}>
                 Tool to help understand the content you receive is scam or not ...</div> */}
 
-                        <Link to="/text#emaildetect" className="button-blue hover:bg-blue-800 flex items-center justify-center px-6 py-2 my-4 text-lg shadow-xl rounded-xl"
+                        {/* <Link to="/text#emaildetect" className="button-blue hover:bg-blue-800 flex items-center justify-center px-6 py-2 my-4 text-lg shadow-xl rounded-xl"
                             style={{ textDecoration: 'none', margin: '0 auto', maxWidth: '200px' }}
                             onClick={() => handleNavigation('textdetect')}>
                             Start Detection
                             <svg className="w-4 h-4 ml-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                                 <path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd"></path>
                             </svg>
-                        </Link>
-
+                        </Link> */}
+{/* 
                         <h2 className="NRtextTiltle">How it works ?</h2>
 
 
@@ -136,7 +140,7 @@ const EmailDetection = () => {
 
                         </div>
                         <br></br>
-                        <br></br>
+                        <br></br> */}
 
                         <div className="NRtextText" style={{
                             display: 'flex',
@@ -145,13 +149,15 @@ const EmailDetection = () => {
                             margin: '0 auto', // Corrects centering
                             marginLeft: '30px',
                             marginRight: '30px'
-                        }}><p>
-                                if you need assistance on <strong>how to safely copy & paste</strong> the text content,<br></br>
-                                Click ‘view more’ </p></div>
-
-                        <div className="flex justify-center items-center ">
-                            < SMSPopup />
+                         }}>
+                        {/* //<p>
+                        //         if you need assistance on <strong>how to safely copy & paste</strong> the text content,<br></br>
+                        //         Click ‘view more’ </p> */}
                         </div>
+
+                        {/* <div className="flex justify-center items-center ">
+                            < SMSPopup />
+                        </div> */}
 
 
                     </div>
@@ -268,11 +274,22 @@ const EmailDetection = () => {
                         <div ref={resultRef} className="flex-col justify-center items-center  mt-16 mb-4" style={{ display: 'flex', justifyContent: 'center' }}>
                             {result && (
                                 result.DetectionResult === 'High risk' ? (
-                                    <HighRiskAlert percentage={result.ScamPercentage} />
+                                    <>
+                                        <HighRiskAlert percentage={result.ScamPercentage}/>
+                                        <button className="button-next-step bg-green-900 hover:bg-green-600 text-white my-4 px-4 py-2 rounded mr-2" onClick={() => setIsModalOpen(false)}>Next Step</button>
+                                    </>
+                                
                                 ) : result.DetectionResult === 'Medium risk' ? (
-                                    <MediumRiskAlert percentage={result.ScamPercentage} />
+                                    <>
+                                        <MediumRiskAlert percentage={result.ScamPercentage} />
+                                        <button className="button-next-step bg-green-900 hover:bg-green-600 text-white my-4 px-4 py-2 rounded mr-2" onClick={() => setIsModalOpen(false)}>Next Step</button>    
+                                    </>
                                 ) : result.DetectionResult === 'Low risk' ? (
-                                    <LowRiskAlert percentage={result.notScamPercentage} />
+                                    <>    
+                                        <LowRiskAlert percentage={result.notScamPercentage} />
+                                        <button className="bg-gray-500 text-white px-4 py-2 rounded mr-2 my-4 " onClick={() => setIsModalOpen(false)}>Close</button>
+                                    
+                                    </>
                                 ) : (
                                     <ErrorAlert />
                                 )
@@ -300,9 +317,11 @@ const EmailDetection = () => {
                     </Link>
 
                     {/* Manage Email section */}
-                    <div className="flex-col justify-center items-center  my-8">
-                        <RemoveSMS />
-                    </div>
+                    {(result && (result.DetectionResult === 'High risk' || result.DetectionResult === 'Medium risk')) && (
+                        <div className="flex-col justify-center items-center  my-8">
+                            <RemoveSMS />
+                        </div>
+                    )}
 
                     {/* Back to Top */}
                     <Link to="/text" className=" flex items-center justify-center text-lg  rounded-xl"
