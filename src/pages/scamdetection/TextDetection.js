@@ -21,6 +21,7 @@ import RemoveSMS from '../../components/EduComponent/RemoveSMS';
 //import SteptoDetect from '../../components/EduComponent/StepstoDetect';
 import DetectionStep from '../../components/EduComponent/DetectionSteps';
 import Modal from '../../components/Modal';
+import Navigator from '../../components/Navigator';
 
 const EmailDetection = () => {
     useEffect(() => {
@@ -323,8 +324,8 @@ const EmailDetection = () => {
                         </div>
                     )}
 
-                    {/* Back to Top */}
-                    <Link to="/text" className=" flex items-center justify-center text-lg  rounded-xl"
+                {/* Back to Top */}
+            <Link to="/text" className=" flex items-center justify-center text-lg  rounded-xl"
                         style={{
                             color: '#283618',
                             textDecoration: 'underline',
@@ -341,10 +342,45 @@ const EmailDetection = () => {
                         </svg>
 
                     </Link>
+                    
+                    
                 </div>
 
             </div>
+            
+            
 
+                    <div id='direction' className="BG-URL-1 py-4 lg:px-10 " >
+
+                        <section data-aos="zoom-in-down" className='mx-auto lg:px-2' style={{ maxWidth: '1600px' }}>
+
+                            <div className=' grid grid-cols-12  mx-12 ' >
+                                <div className="col-span-3 text-xl md:grid-cols-6 gap-1 mx-2 flex items-center ">
+                                    <Navigator
+                                        to="/detection"
+                                        textPrimary="Previous"
+                                        textSecondary="Detection Model"
+                                        direction="left"
+                                        className="text-[#6B88CA] hover:text-blue-900 hover:-translate-x-3"
+                                    />
+                                </div>
+                                <div className="col-span-6 md:grid-cols-0 mx-2">
+                                </div>
+
+                                <div className="col-span-3 text-xl md:grid-cols-6 mr-2 flex justify-end items-center">
+                                    <Navigator
+                                        to="/scam-classification"
+                                        textPrimary="Next"
+                                        textSecondary="Scam Types"
+                                        direction="right"
+                                        className="text-[#6B88CA] hover:text-blue-900 hover:-translate-x-3"
+                                    />
+                                </div>
+
+
+                            </div>
+                        </section>
+                    </div>
 
             <Footer />
         </>

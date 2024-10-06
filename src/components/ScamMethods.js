@@ -15,24 +15,20 @@ const ScamMethods = () => {
                 <div className="text-center max-w-xs mx-auto" data-aos="fade-up" data-aos-delay="500">
                     <img src={textImg} alt="Text Scam" className="rounded-full mb-4 mx-auto" />
                     <h3 className="font-semibold text-xl mb-2">Text</h3>
-                    <p className="text-center">Copy and paste the content you received into the textbox</p>
+                    <p className="text-center">Fraudulent messages pretend to be from trusted contacts or companies.</p>
                 </div>
                 <div className="text-center max-w-xs mx-auto" data-aos="fade-up" data-aos-delay="500">
                     <img src={emailImg} alt="Email Scam" className="rounded-full mb-4 mx-auto" />
                     <h3 className="font-semibold text-xl mb-2">Email</h3>
-                    <p className="text-center">Copy and paste the content you received into the textbox</p>
+                    <p className="text-center">Fake websites or emails mimic trusted sources to steal data.</p>
                 </div>
                 <div className="text-center max-w-xs mx-auto" data-aos="fade-up" data-aos-delay="500">
                     <img src={phoneImg} alt="Phone Scam" className="rounded-full mb-4 mx-auto"/>
                     <h3 className="font-semibold text-xl mb-2">Phone</h3>
-                    <p className="text-center">Copy and paste the content you received into the textbox</p>
+                    <p className="text-center">Impersonate government, businesses, or loved ones to steal money.</p>
                 </div>
             </div>
-            <div className="text-center mt-8">
-                <Link to="/scam-classification" className="text-white bg-yellow-500 hover:bg-blue-800 inline-flex items-center justify-center px-6 py-3 text-lg shadow-xl rounded-2xl">
-                    Explore More
-                </Link>
-            </div>
+            
         </div>
     );
 }

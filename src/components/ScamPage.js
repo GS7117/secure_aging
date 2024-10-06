@@ -55,10 +55,17 @@ const ScamPage = ({ title, description,titleImg, sections, protectSection, prevL
                 </div>
                 <div className="flex justify-between px-8 mt-8">
                     <Link to={prevLink} className="text-green-700 hover:text-white inline-flex items-center justify-left px-4 py-2 mx-2">
-                        &larr; {prevLabel}
+                    <svg class="w-[25px] h-[25px] fill-[#426B1F]" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160zm352-160l-160 160c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L301.3 256 438.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0z"></path>
+                    </svg> {prevLabel}
                     </Link>
                     <Link to={nextLink} className="text-green-700 hover:text-white inline-flex items-center justify-right px-4 py-2 mx-2">
-                        {nextLabel} &rarr;
+                        {nextLabel} <svg class="w-[25px] h-[25px] fill-[#426B1F]" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+
+
+                        <path d="M470.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L402.7 256 265.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160zm-352 160l160-160c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L210.7 256 73.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0z"></path>
+
+                        </svg>
                     </Link>
                 </div>
             </main>
