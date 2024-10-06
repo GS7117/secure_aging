@@ -20,7 +20,7 @@ const NavLinks = () => {
     };
 
     return (
-        <div className="relative">
+        <div className="relative flex space-x-4">
             <HashLink style={{ textDecoration: 'none' }} className="px-4 font-extrabold text-gray-500 hover:text-green-900" smooth to="/">
                 Home Page
             </HashLink>
@@ -30,23 +30,27 @@ const NavLinks = () => {
             <div className="relative inline-block" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
                 <button className="px-4 font-extrabold text-gray-500 hover:text-green-900 focus:outline-none">
                     Scam Awareness
+                    <svg className="w-4 h-4 ml-1 inline" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                        <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M1 1l4 4 4-4" />
+                    </svg>
                 </button>
                 {dropdownOpen && (
-                    <ul className="absolute left-0 mt-2 w-48 bg-white shadow-lg rounded-md">
-                        <li className="">
-                            <HashLink smooth to="/scam-classification" className="px-4 font-extrabold text-gray-500 hover:text-green-900">
-                                Scam Types
-                            </HashLink>
-                        </li>
-                        <li>
-                            <HashLink smooth to="/scamstats" className="block px-4 py-2 font-extrabold text-gray-500 hover:text-green-900">
-                                Scam Statistics
-                            </HashLink>
-                        </li>
-                    </ul>
+                    <div className="absolute left-0 mt-2 w-48 bg-white divide-y divide-gray-100 rounded-lg shadow-lg z-10">
+                        <ul className="" aria-labelledby="dropdownDelayButton">
+                            <li>
+                                <HashLink smooth to="/scam-classification" className=" text-m text-gray-500 hover:text-green-900 block font-extrabold py-2  focus:outline-none" style={{ textDecoration: 'none' }}>
+                                    Scam Types
+                                </HashLink>
+                            </li>
+                            <li>
+                                <HashLink smooth to="/scamstats" className="text-m text-gray-500 hover:text-green-900 block font-extrabold py-2  focus:outline-none" style={{ textDecoration: 'none' }}>
+                                    Scam Statistics
+                                </HashLink>
+                            </li>
+                        </ul>
+                    </div>
                 )}
             </div>
-            
         </div>
     );
 };

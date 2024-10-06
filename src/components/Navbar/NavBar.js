@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import NavLinks from './NavLinks';
 import { HashLink } from 'react-router-hash-link';
-import logo from "./secure_aging_logo_logo_v2.svg";
+import logo from "./logo.svg";
 
 const NavBar = () => {
     const [top, setTop] = useState(!window.scrollY);
