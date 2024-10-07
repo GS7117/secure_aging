@@ -211,18 +211,428 @@ p {
     /* Updated to Newsreader font */
 }
 
-/* Responsive Styles */
-@media (max-width: 768px) {
-    .header-section h1 {
-        font-size: 2.25rem;
+
+/* 
+
+
+*/
+
+/* Base styles for all screens */
+.textual-info {
+    flex: 1;
+    text-align: left;
+    padding-left: 20px;
+    min-width: 280px;
+    font-family: 'Newsreader', serif;
+}
+
+.textual-info p {
+    font-family: 'Newsreader', serif;
+}
+
+.textual-info p:first-child {
+    font-size: 1.75rem;
+    color: #243b53;
+    font-weight: bold;
+}
+
+.textual-info p strong {
+    font-size: 2.5rem;
+}
+
+.textual-info ul {
+    list-style: none;
+    padding: 0;
+    font-family: 'Newsreader', serif;
+}
+
+.textual-info ul li {
+    font-size: 1.75rem;
+    color: #243b53;
+}
+
+.textual-info p:last-child {
+    font-size: 1.25rem;
+    color: #5f6c7b;
+    margin-top: 20px;
+}
+
+.next-button {
+    font-size: 1.25rem;
+    color: #243b53;
+    margin-top: 30px;
+    cursor: pointer;
+}
+
+.tab-section button {
+    padding: 10px 20px;
+    margin: 10px 5px;
+    border: 1px solid #ccc;
+    background-color: #f9f9f9;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 1rem;
+    color: #000;
+}
+
+.tab-section button.active {
+    border: 2px solid #000;
+}
+
+.stats-and-chart-section {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin: 0 2rem 30px;
+}
+
+.chart-container {
+    flex: 1;
+    margin-right: 20px;
+    box-sizing: border-box;
+    margin: 0 auto;
+}
+
+.chart-container h2 {
+    font-size: 1.5rem;
+}
+
+/* Responsive design for smaller screens */
+@media (max-width: 1080px) {
+    .textual-info p:first-child {
+        font-size: 1.5rem;
     }
 
-    .state-selection h2 {
+    .textual-info p strong {
         font-size: 2rem;
     }
 
-    .map-container {
-        height: 300px;
-        /* Smaller map for mobile */
+    .textual-info ul li {
+        font-size: 1.5rem;
+    }
+
+    .next-button {
+        font-size: 1rem;
+    }
+
+    .chart-container h2 {
+        font-size: 1.25rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .textual-info p:first-child {
+        font-size: 1.25rem;
+    }
+
+    .textual-info p strong {
+        font-size: 1.75rem;
+    }
+
+    .textual-info ul li {
+        font-size: 1.25rem;
+    }
+
+    .next-button {
+        font-size: 0.9rem;
+    }
+
+    .tab-section button {
+        font-size: 0.9rem;
+    }
+
+    .chart-container h2 {
+        font-size: 1.1rem;
+    }
+}
+
+@media (max-width: 546px) {
+    .textual-info p:first-child {
+        font-size: 1.1rem;
+    }
+
+    .textual-info p strong {
+        font-size: 1.5rem;
+    }
+
+    .textual-info ul li {
+        font-size: 1rem;
+    }
+
+    .next-button {
+        font-size: 0.85rem;
+    }
+
+    .tab-section button {
+        font-size: 0.8rem;
+    }
+
+    .chart-container h2 {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 410px) {
+    .textual-info p:first-child {
+        font-size: 1rem;
+    }
+
+    .textual-info p strong {
+        font-size: 1.4rem;
+    }
+
+    .textual-info ul li {
+        font-size: 0.9rem;
+    }
+
+    .next-button {
+        font-size: 0.75rem;
+    }
+
+    .tab-section button {
+        font-size: 0.75rem;
+        padding: 8px 15px;
+    }
+
+    .chart-container h2 {
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 312px) {
+    .textual-info p:first-child {
+        font-size: 0.9rem;
+    }
+
+    .textual-info p strong {
+        font-size: 1.25rem;
+    }
+
+    .textual-info ul li {
+        font-size: 0.85rem;
+    }
+
+    .next-button {
+        font-size: 0.7rem;
+    }
+
+    .tab-section button {
+        font-size: 0.7rem;
+        padding: 5px 10px;
+    }
+
+    .chart-container h2 {
+        font-size: 0.85rem;
+    }
+}
+
+@media (max-width: 456px) {
+    #line-chart-stat .chart-container {
+        max-width: 285px !important;
+    }
+}
+
+/* Base styles for all screens */
+.textual-stats {
+    flex: 0 0 300px;
+    text-align: left;
+    font-family: 'Georgia', serif;
+    color: #243b53;
+    margin-left: 20px;
+    margin-top: 20px;
+    min-width: 250px;
+}
+
+.textual-stats h2.amount-header {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+    color: #243b53;
+    text-align: center;
+}
+
+.textual-stats p.amount-text {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #D9534F;
+    margin: 0.5rem 0;
+    text-align: center;
+}
+
+.textual-stats p.amount-description {
+    font-size: 1.25rem;
+    color: #243b53;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.textual-stats p.percentage-text {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #F0AD4E;
+    margin: 0.5rem 0;
+    text-align: center;
+}
+
+.textual-stats p.percentage-description {
+    font-size: 1.75rem;
+    font-weight: bold;
+    color: #F0AD4E;
+    margin: 0.5rem 0;
+    text-align: center;
+}
+
+.textual-stats p {
+    font-size: 1.5rem;
+    margin: 0.5rem 0;
+}
+
+.textual-stats strong {
+    font-size: 2rem;
+    color: #243b53;
+}
+
+.button-section-nex {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.next-button {
+    font-size: 1.25rem;
+    color: #243b53;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+/* Responsive design for smaller screens */
+@media (max-width: 1080px) {
+    .textual-stats h2.amount-header {
+        font-size: 1.75rem;
+    }
+
+    .textual-stats p.amount-text {
+        font-size: 2.2rem;
+    }
+
+    .textual-stats p.percentage-text {
+        font-size: 2.2rem;
+    }
+
+    .textual-stats p.percentage-description {
+        font-size: 1.5rem;
+    }
+
+    .textual-stats p {
+        font-size: 1.25rem;
+    }
+
+    .next-button {
+        font-size: 1.1rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .textual-stats h2.amount-header {
+        font-size: 1.5rem;
+    }
+
+    .textual-stats p.amount-text {
+        font-size: 2rem;
+    }
+
+    .textual-stats p.percentage-text {
+        font-size: 2rem;
+    }
+
+    .textual-stats p.percentage-description {
+        font-size: 1.3rem;
+    }
+
+    .textual-stats p {
+        font-size: 1.1rem;
+    }
+
+    .next-button {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 546px) {
+    .textual-stats h2.amount-header {
+        font-size: 1.3rem;
+    }
+
+    .textual-stats p.amount-text {
+        font-size: 1.8rem !important;
+    }
+
+    .textual-stats p.percentage-text {
+        font-size: 1.8rem !important;
+    }
+
+    .textual-stats p.percentage-description {
+        font-size: 1.25rem;
+    }
+
+    .textual-stats p {
+        font-size: 1rem;
+    }
+
+    .next-button {
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 410px) {
+    .textual-stats h2.amount-header {
+        font-size: 1.1rem;
+    }
+
+    .textual-stats p.amount-text {
+        font-size: 1.5rem !important;
+    }
+
+    .textual-stats p.percentage-text {
+        font-size: 1.5rem;
+    }
+
+    .textual-stats p.percentage-description {
+        font-size: 1rem;
+    }
+
+    .textual-stats p {
+        font-size: 0.9rem;
+    }
+
+    .next-button {
+        font-size: 0.8rem;
+    }
+}
+
+@media (max-width: 312px) {
+    .textual-stats h2.amount-header {
+        font-size: 1rem;
+    }
+
+    .textual-stats p.amount-text {
+        font-size: 1rem;
+    }
+
+    .textual-stats p.percentage-text {
+        font-size: 1.25rem;
+    }
+
+    .textual-stats p.percentage-description {
+        font-size: 0.9rem;
+    }
+
+    .textual-stats p {
+        font-size: 0.85rem;
+    }
+
+    .next-button {
+        font-size: 0.75rem;
     }
 }

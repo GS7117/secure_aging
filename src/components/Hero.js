@@ -18,9 +18,9 @@ const Hero = () => {
 
                     <div id='hero' className="flex flex-col lg:flex-row py-8 justify-between text-left">
                         <div className="lg:w-1/2 flex flex-col justify-center" data-aos="zoom-in" data-aos-delay="200">
-                            <h1 className="mb-5 md:text-5xl text-3xl font-bold" style={{ color: '#A9F285' }}>
-                                STOP , Better Safe than Scammed.
-                            </h1>
+                        <h1 className="mb-5 md:text-5xl text-3xl font-bold pt-16 lg:pt-0" style={{ color: '#A9F285' }}>
+                            STOP, Better Safe than Scammed.
+                        </h1>
                             <div className="flex justify-start items-left text-xl font-semibold tracking-tight mb-5 text-white">Our platform raises awareness by offering a comprehensive database of past and ongoing scams, delivering timely news updates, and connecting users with personal security assistance.</div>
                             <div className="mb-4 space-x-0 md:space-x-2 md:mb-8">
                                 <Link to="/detection" style={{ textDecoration: 'none' }} className="text-white bg-yellow-500 hover:bg-blue-800 inline-flex items-center justify-center w-full px-6 py-3 my-4 text-lg shadow-xl rounded-2xl sm:w-auto sm:mb-0">
@@ -50,8 +50,8 @@ const Hero = () => {
                                 
                             </div>
                         </div>
-                        <div className="flex lg:justify-end w-full lg:w-1/2" data-aos="fade-up" data-aos-delay="700">
-                            <img src= {seniorImg} alt="card img" className="rounded-t float-right duration-1000 h-full w-3/5 w-full"   />
+                        <div className="flex lg:justify-end w-full lg:w-1/2 mb-8 lg:mb-0" data-aos="fade-up" data-aos-delay="700">
+                            <img src= {seniorImg} alt="card img" className="rounded-t float-right duration-1000 h-full w-full lg:w-3/5"   />
                         </div>
                     </div>
                 </div>

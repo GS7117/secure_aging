@@ -1,7 +1,7 @@
 // ScamStats.jsx
 
 import React, { useEffect, useState, useMemo } from 'react';
-import { Line, Bar } from 'react-chartjs-2';
+import { Bar, Bubble } from 'react-chartjs-2';
 import { MapContainer, TileLayer, GeoJSON } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import 'chart.js/auto';
@@ -9,6 +9,12 @@ import './Dashboard.css'; // Custom styles for layout
 import './ScamStats.css';
 import NavBar from '../../components/Navbar/NavBar';
 import Footer from '../../components/Footer';
+import ChartDataLabels from 'chartjs-plugin-datalabels';
+import { Chart, registerables } from 'chart.js';
+import { hierarchy, pack } from 'd3-hierarchy';
+
+
+Chart.register(...registerables, ChartDataLabels);
 
 const ScamStats = () => {
     // Array of state names for the dropdown
@@ -39,18 +45,16 @@ const ScamStats = () => {
             {
                 label: 'Total Amount Lost',
                 data: [],
-                backgroundColor: 'rgba(75, 192, 192, 0.2)', // Light Blue fill
-                borderColor: 'rgba(75, 192, 192, 1)', // Blue line
-                fill: true,
-                tension: 0.4,
+                backgroundColor: 'rgba(75, 192, 192, 0.6)', // Light Blue bars
+                borderColor: 'rgba(75, 192, 192, 1)', // Blue border
+                borderWidth: 1,
             },
             {
                 label: 'Amount Lost by People Aged 55+',
                 data: [],
-                backgroundColor: 'rgba(255, 159, 64, 0.2)', // Orange fill
-                borderColor: 'rgba(255, 159, 64, 1)', // Orange line
-                fill: true,
-                tension: 0.4,
+                backgroundColor: 'rgba(255, 159, 64, 0.6)', // Orange bars
+                borderColor: 'rgba(255, 159, 64, 1)', // Orange border
+                borderWidth: 1,
             }
         ]
     });
@@ -61,18 +65,16 @@ const ScamStats = () => {
             {
                 label: 'Total Number of Reports',
                 data: [],
-                backgroundColor: 'rgba(75, 192, 192, 0.2)', // Light Blue fill
-                borderColor: 'rgba(75, 192, 192, 1)', // Blue line
-                fill: true,
-                tension: 0.4,
+                backgroundColor: 'rgba(75, 192, 192, 0.6)', // Light Blue bars
+                borderColor: 'rgba(75, 192, 192, 1)', // Blue border
+                borderWidth: 1,
             },
             {
                 label: 'Reports by People Aged 55+',
                 data: [],
-                backgroundColor: 'rgba(255, 159, 64, 0.2)', // Orange fill
-                borderColor: 'rgba(255, 159, 64, 1)', // Orange line
-                fill: true,
-                tension: 0.4,
+                backgroundColor: 'rgba(255, 159, 64, 0.6)', // Orange bars
+                borderColor: 'rgba(255, 159, 64, 1)', // Orange border
+                borderWidth: 1,
             }
         ]
     });
@@ -120,12 +122,11 @@ const ScamStats = () => {
                 return response.json();
             })
             .then(data => {
-                console.log('GeoJSON data:', data);  // 调试时查看数据
-                setGeoData(data);  // 将 GeoJSON 数据设置到状态中
+                console.log('GeoJSON data:', data);
+                setGeoData(data);
             })
             .catch(error => console.error('Error loading GeoJSON:', error));
     }, []);
-    
 
     // Define color for each state
     const getColorForState = (stateName) => {
@@ -146,36 +147,21 @@ const ScamStats = () => {
     const onEachState = (feature, layer) => {
         // Bind state name as a tooltip with white bold text
         layer.bindTooltip(feature.properties.STATE_NAME, {
-            permanent: true,  // Always show the label
-            direction: 'center',  // Center the label on the state
-            className: 'state-label'  // Apply a custom CSS class for the label
+            permanent: true,
+            direction: 'center',
+            className: 'state-label'
         });
-    
+
         // Handle the click event on a state
         layer.on('click', () => {
-            const stateName = feature.properties.STATE_NAME;  // 获取州名
-            const encodedStateName = encodeURIComponent(stateName);  // 对州名进行 URL 编码
-    
-            setSelectedState(stateName); // 更新选择的州
-    
-            // 发起请求时使用编码后的州名
-            fetch(`https://v393yif444.execute-api.us-east-1.amazonaws.com/stage1/scamstats/state_stats/${encodedStateName}`)
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error(`HTTP error! Status: ${response.status}`);
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    console.log('State Data:', data);
-                    // 在这里处理数据，例如更新图表等
-                })
-                .catch(error => console.error('Error fetching state data:', error));
+            const stateName = feature.properties.STATE_NAME;
+            const encodedStateName = encodeURIComponent(stateName);
+
+            setSelectedState(stateName);
+
+            // Fetch data when a state is clicked (optional, since useEffect handles it)
         });
     };
-    
-
-
 
     // Handle state change from dropdown
     const handleStateChange = (event) => {
@@ -199,7 +185,7 @@ const ScamStats = () => {
 
     // Fetch data for the amount lost chart based on the selected state
     const fetchStateData = (state) => {
-        const encodedState = encodeURIComponent(state);  // 对州名进行 URL 编码
+        const encodedState = encodeURIComponent(state);
         fetch(`https://v393yif444.execute-api.us-east-1.amazonaws.com/stage1/scamstats/state_stats/${encodedState}`)
             .then(response => {
                 if (!response.ok) {
@@ -209,10 +195,10 @@ const ScamStats = () => {
             })
             .then(data => {
                 const filteredData = data.filter(item => item.year >= (currentYear - 10));
-    
+
                 const chartLabels = filteredData.map(item => item.year);
                 const chartValues = filteredData.map(item => item.total_lost);
-    
+
                 // Set chart data for total amount lost
                 setChartData(prevChartData => ({
                     ...prevChartData,
@@ -228,7 +214,7 @@ const ScamStats = () => {
 
     // Fetch data for the amount lost by people aged 55+ chart based on the selected state
     const fetchStateDataForAge55 = (state) => {
-        const encodedState = encodeURIComponent(state);  // 对州名进行 URL 编码
+        const encodedState = encodeURIComponent(state);
         fetch(`https://v393yif444.execute-api.us-east-1.amazonaws.com/stage1/scamstats/state_stats_age_55/${encodedState}`)
             .then(response => {
                 if (!response.ok) {
@@ -238,10 +224,10 @@ const ScamStats = () => {
             })
             .then(data => {
                 const filteredData = data.filter(item => item.year >= (currentYear - 10));
-    
+
                 const chartValues = filteredData.map(item => item.total_lost_age_55);
-    
-                // 更新 55 岁及以上人群的数据
+
+                // Update data for people aged 55+
                 setChartData(prevChartData => ({
                     ...prevChartData,
                     datasets: [
@@ -252,11 +238,10 @@ const ScamStats = () => {
             })
             .catch(error => console.error('Error fetching data for people aged 55+', error));
     };
-    
 
     // Fetch data for the number of reports chart based on the selected state
     const fetchReportData = (state) => {
-        const encodedState = encodeURIComponent(state);  // 对州名进行 URL 编码
+        const encodedState = encodeURIComponent(state);
         fetch(`https://v393yif444.execute-api.us-east-1.amazonaws.com/stage1/scamstats/state_reports/${encodedState}`)
             .then(response => {
                 if (!response.ok) {
@@ -266,11 +251,11 @@ const ScamStats = () => {
             })
             .then(data => {
                 const filteredData = data.filter(item => item.year >= (currentYear - 10));
-    
+
                 const chartLabels = filteredData.map(item => item.year);
                 const chartValues = filteredData.map(item => item.total_reports);
-    
-                // 设置报告数据
+
+                // Set reports data
                 setReportsData(prevReportsData => ({
                     ...prevReportsData,
                     labels: chartLabels,
@@ -282,11 +267,10 @@ const ScamStats = () => {
             })
             .catch(error => console.error('Error fetching reports data for state:', error));
     };
-    
 
     // Fetch data for the number of reports by people aged 55+ based on the selected state
     const fetchReportDataForAge55 = (state) => {
-        const encodedState = encodeURIComponent(state);  // 对州名进行 URL 编码
+        const encodedState = encodeURIComponent(state);
         fetch(`https://v393yif444.execute-api.us-east-1.amazonaws.com/stage1/scamstats/state_reports_age_55/${encodedState}`)
             .then(response => {
                 if (!response.ok) {
@@ -296,10 +280,10 @@ const ScamStats = () => {
             })
             .then(data => {
                 const filteredData = data.filter(item => item.year >= (currentYear - 10));
-    
+
                 const chartValues = filteredData.map(item => item.total_reports_age_55);
-    
-                // 更新55岁及以上人群的报告数据
+
+                // Update reports data for people aged 55+
                 setReportsData(prevReportsData => ({
                     ...prevReportsData,
                     datasets: [
@@ -310,11 +294,10 @@ const ScamStats = () => {
             })
             .catch(error => console.error('Error fetching report data for people aged 55+', error));
     };
-    
 
     // Fetch Scam Type Distribution Data for Age 55+ only and selected year
     const fetchScamTypeData = (state, year) => {
-        const encodedState = encodeURIComponent(state);  // 对州名进行 URL 编码
+        const encodedState = encodeURIComponent(state);
         fetch(`https://v393yif444.execute-api.us-east-1.amazonaws.com/stage1/scamstats/scam_type_distribution_age_55/${encodedState}/${year}`)
             .then(res => {
                 if (!res.ok) {
@@ -323,20 +306,19 @@ const ScamStats = () => {
                 return res.json();
             })
             .then(data => {
-                console.log('Scam Type Distribution Data:', data); // Debugging line
-    
-                // 按照 scam type 的计数从大到小排序
+                console.log('Scam Type Distribution Data:', data);
+
+                // Sort by count descending
                 const sortedData = data.sort((a, b) => b.count - a.count);
-    
-                setScamTypeData(sortedData); // 更新 scam type 数据
+
+                setScamTypeData(sortedData);
             })
             .catch(error => console.error('Error fetching scam type distribution data:', error));
     };
-    
 
-    // Fetch category trend data for Area Chart (number of scams per category_2 per month)
+    // Fetch category trend data for Bubble Chart
     const fetchCategoryTrendData = (state, year) => {
-        const encodedState = encodeURIComponent(state);  // 对州名进行 URL 编码
+        const encodedState = encodeURIComponent(state);
         fetch(`https://v393yif444.execute-api.us-east-1.amazonaws.com/stage1/scamstats/scam_categories_trends/${encodedState}/${year}`)
             .then(res => {
                 if (!res.ok) {
@@ -345,19 +327,18 @@ const ScamStats = () => {
                 return res.json();
             })
             .then(data => {
-                console.log('Category Trend Data:', data); // 调试用
-                setCategoryTrendData(data); // 更新趋势数据
+                console.log('Category Trend Data:', data);
+                setCategoryTrendData(data);
             })
             .catch(error => console.error('Error fetching scam categories trends:', error));
     };
-    
 
     // Fetch total amount lost in selectedYear
     const fetchTotalLostForYear = (year) => {
         fetch(`https://v393yif444.execute-api.us-east-1.amazonaws.com/stage1/scamstats/loss_stats/${year}`)
             .then(response => response.json())
             .then(data => {
-                console.log(`Total Lost for ${year}:`, data.total_lost); // Debugging line
+                console.log(`Total Lost for ${year}:`, data.total_lost);
                 setTotalLostSelectedYear(data.total_lost);
             })
             .catch(error => console.error(`Error fetching total lost for year ${year}:`, error));
@@ -368,7 +349,7 @@ const ScamStats = () => {
         fetch(`https://v393yif444.execute-api.us-east-1.amazonaws.com/stage1/scamstats/loss_stats_by_age_55/${year}`)
             .then(response => response.json())
             .then(data => {
-                console.log(`Total Lost by Age 55+ for ${year}:`, data.total_lost_by_age_55); // Debugging line
+                console.log(`Total Lost by Age 55+ for ${year}:`, data.total_lost_by_age_55);
                 setLostByAge55SelectedYear(data.total_lost_by_age_55);
             })
             .catch(error => console.error(`Error fetching total lost by age 55 for year ${year}:`, error));
@@ -379,7 +360,7 @@ const ScamStats = () => {
         fetch(`https://v393yif444.execute-api.us-east-1.amazonaws.com/stage1/scamstats/reports_stats/${year}`)
             .then(response => response.json())
             .then(data => {
-                console.log(`Total Reports for ${year}:`, data.total_reports); // Debugging line
+                console.log(`Total Reports for ${year}:`, data.total_reports);
                 setTotalReportsSelectedYear(data.total_reports);
             })
             .catch(error => console.error(`Error fetching total reports for year ${year}:`, error));
@@ -390,7 +371,7 @@ const ScamStats = () => {
         fetch(`https://v393yif444.execute-api.us-east-1.amazonaws.com/stage1/scamstats/reports_stats_by_age_55/${year}`)
             .then(response => response.json())
             .then(data => {
-                console.log(`Reports by Age 55+ for ${year}:`, data.total_reports_by_age_55); // Debugging line
+                console.log(`Reports by Age 55+ for ${year}:`, data.total_reports_by_age_55);
                 setReportsByAge55SelectedYear(data.total_reports_by_age_55);
             })
             .catch(error => console.error(`Error fetching reports by age 55 for year ${year}:`, error));
@@ -412,12 +393,13 @@ const ScamStats = () => {
         setActiveTab(tab);
     };
 
-    // Chart options with onClick handler
+    // Chart options with onClick handler and disabled datalabels
     const chartOptions = {
         responsive: true,
         plugins: {
             legend: { display: true },
             title: { display: true, text: `Amount Lost in ${selectedState} Over the Last 10 Years` },
+            datalabels: { display: false }, // Disable datalabels for Bar charts
         },
         scales: {
             y: { beginAtZero: true, title: { display: true, text: 'Amount Lost' } },
@@ -433,12 +415,13 @@ const ScamStats = () => {
         },
     };
 
-    // Reports chart options with onClick handler
+    // Reports chart options with onClick handler and disabled datalabels
     const reportsChartOptions = {
         responsive: true,
         plugins: {
             legend: { display: true },
             title: { display: true, text: `Number of Reports in ${selectedState} Over the Last 10 Years` },
+            datalabels: { display: false }, // Disable datalabels for Bar charts
         },
         scales: {
             y: { beginAtZero: true, title: { display: true, text: 'Number of Reports' } },
@@ -454,152 +437,105 @@ const ScamStats = () => {
         },
     };
 
-    // Compute top categories using useMemo
-    const topCategoriesComputed = useMemo(() => {
-        if (!categoryTrendData || categoryTrendData.length === 0) return [];
+    const bubbleChartData = useMemo(() => {
+        if (!categoryTrendData || categoryTrendData.length === 0) return { datasets: [] };
 
-        // Aggregate counts per category_2
+        // Aggregate counts per category
         const categoryCounts = categoryTrendData.reduce((acc, item) => {
-            acc[item.category_2] = (acc[item.category_2] || 0) + item.count;
+            if (item.category_2) {
+                acc[item.category_2] = (acc[item.category_2] || 0) + item.count;
+            }
             return acc;
         }, {});
 
-        // Convert to array and sort descending
+        // Convert to array and sort descending by count
         const sortedCategories = Object.entries(categoryCounts)
-            .map(([category, count]) => ({ category, count }))
-            .sort((a, b) => b.count - a.count)
-            .slice(0, 5); // Top 5 categories
+            .map(([category, count]) => ({ name: category, value: count }))
+            .sort((a, b) => b.value - a.value);
 
-        return sortedCategories;
-    }, [categoryTrendData]);
+        // Create a hierarchical structure required by D3's pack layout
+        const root = hierarchy({ children: sortedCategories })
+            .sum(d => d.value);
 
-    // Prepare Category Chart Data using useMemo
-    const categoryChartData = useMemo(() => {
-        if (!categoryTrendData || categoryTrendData.length === 0) return { datasets: [], totalScamsForYear: 0 };
+        const packLayout = pack()
+            .size([400, 400]) // Define the size of the layout (width, height)
+            .padding(5); // Padding between circles
 
-        // Calculate total scams for the year
-        const totalScamsForYear = categoryTrendData.reduce((total, item) => total + item.count, 0);
+        const packedData = packLayout(root).leaves();
 
-        // Prepare datasets based on topCategoriesComputed
-        const datasets = topCategoriesComputed.map((categoryObj, idx) => {
-            const { category, count } = categoryObj;
-            // Filter data for this category
-            const categoryData = categoryTrendData.filter(item => item.category_2 === category);
+        // Extract x, y, r from packedData
+        const bubbles = packedData.map(d => ({
+            x: d.x - 200, // Center the layout by shifting origin
+            y: d.y - 200,
+            r: d.r,
+            category: d.data.name,
+            count: d.data.value,
+        }));
 
-            // Initialize data array for 12 months
-            const data = Array(12).fill(0);
-            categoryData.forEach(item => {
-                const monthIndex = item.month - 1; // Months are 1-12
-                if (!isNaN(monthIndex)) {
-                    data[monthIndex] += item.count;
-                }
-            });
+        // Generate distinct colors for each bubble
+        const generateColor = () => {
+            const hue = Math.floor(Math.random() * 360);
+            return `hsla(${hue}, 70%, 50%, 0.8)`;
+        };
 
-            // Define colors
-            const colors = [
-                'rgba(75, 192, 192, 0.4)',   // Teal
-                'rgba(255, 99, 132, 0.4)',   // Red
-                'rgba(255, 206, 86, 0.4)',   // Yellow
-                'rgba(54, 162, 235, 0.4)',   // Blue
-                'rgba(153, 102, 255, 0.4)',  // Purple
-            ];
-
-            const borderColors = [
-                'rgba(75, 192, 192, 1)',
-                'rgba(255, 99, 132, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(153, 102, 255, 1)',
-            ];
-
-            return {
-                label: category,
-                data: data,
-                backgroundColor: colors[idx % colors.length],
-                borderColor: borderColors[idx % borderColors.length],
-                fill: true,
-                tension: 0.4,
-            };
-        });
-
-        // Prepare month labels
-        const monthLabels = Array.from({ length: 12 }, (_, i) => new Date(0, i).toLocaleString('default', { month: 'short' }));
+        const backgroundColors = bubbles.map(() => generateColor());
 
         return {
-            labels: monthLabels,
-            datasets: datasets,
-            totalScamsForYear: totalScamsForYear,
+            datasets: [{
+                label: 'Scam Categories',
+                data: bubbles,
+                backgroundColor: backgroundColors,
+            }],
         };
-    }, [categoryTrendData, topCategoriesComputed]);
-    {
-        categoryTrendData.slice(0, 3).map((category, index) => {
-            let fontSize, color;
-            switch (index) {
-                case 0:
-                    fontSize = '2rem';
-                    color = '#8B0000'; // Dark Red for top category
-                    break;
-                case 1:
-                    fontSize = '1.75rem';
-                    color = '#B22222'; // FireBrick for second
-                    break;
-                case 2:
-                    fontSize = '1.5rem';
-                    color = '#CD5C5C'; // IndianRed for third
-                    break;
-                default:
-                    fontSize = '1.5rem';
-                    color = '#000'; // Default black
-            }
-            return (
-                <div key={index} style={{ marginBottom: '20px' }}>
-                    <h3 style={{ fontSize: fontSize, marginBottom: '0.5rem', color: color }}>
-                        {index + 1}. {category.category_2}
-                    </h3>
-                    <p style={{ fontSize: '1.25rem', color: '#243b53' }}>
-                        Reports: <strong style={{ color: '#D9534F' }}>{parseInt(category.count, 10).toLocaleString()}</strong>
-                    </p>
-                </div>
-            );
-        })
-    }
+    }, [categoryTrendData]);
 
 
-    const categoryChartOptions = {
+    const bubbleChartOptions = {
         responsive: true,
         plugins: {
-            legend: { display: true, position: 'top' },
+            legend: { display: false },
+            tooltip: {
+                callbacks: {
+                    label: function (context) {
+                        const data = context.raw;
+                        return `${data.category}: ${parseInt(data.count).toLocaleString()} reports`;
+                    }
+                }
+            },
             title: {
                 display: true,
-                text: `Monthly Scam Trends by Category in ${selectedState} (${selectedYear})`,
-                font: { size: 18 },
+                text: `Scam Categories in ${selectedState} (${selectedYear})`,
             },
-            tooltip: {
-                mode: 'index',
-                intersect: false,
-            },
-            filler: {
-                propagate: true,
-            },
-        },
-        interaction: {
-            mode: 'nearest',
-            axis: 'x',
-            intersect: false,
+            // Datalabels plugin to center labels inside bubbles
+            datalabels: {
+                display: true,
+                align: 'center',
+                anchor: 'center',
+                formatter: function (value, context) {
+                    return value.category;  // Display category name in the bubble
+                },
+                color: '#ffffff',  // White text to ensure it's visible on dark bubbles
+                font: function (context) {
+                    const radius = context.chart.data.datasets[0].data[context.dataIndex].r;
+                    let size = Math.round(radius / 3); // Adjusted scaling for better fit
+                    size = size > 20 ? 20 : size; // Limit max font size
+                    return {
+                        weight: 'bold',
+                        size: size,
+                    };
+                },
+                clip: false,  // Prevent labels from being cut off
+            }
         },
         scales: {
-            y: {
-                beginAtZero: true,
-                title: { display: true, text: 'Number of Scams' },
-                stacked: false, // Set to true if you want a stacked area chart
-            },
             x: {
-                title: { display: true, text: 'Months' },
-                stacked: false, // Set to true if you want a stacked area chart
+                display: false,  // Hide x-axis
+            },
+            y: {
+                display: false,  // Hide y-axis
             },
         },
     };
-
 
     // Prepare data for the Horizontal Bar chart (only for age 55+ and selectedYear)
     const horizontalBarChartData = {
@@ -622,6 +558,7 @@ const ScamStats = () => {
         plugins: {
             legend: { display: false },
             title: { display: true, text: `Distribution of Scam Types in ${selectedState} in ${selectedYear}` },
+            datalabels: { display: false }, // Disable datalabels for Bar charts
         },
         scales: {
             x: { beginAtZero: true, title: { display: true, text: 'Number of Reports' } },
@@ -639,32 +576,71 @@ const ScamStats = () => {
         },
     };
 
-    // Compute percentages
-    // Removed duplicate declaration here
-    // const percentageReportsByAge55 = ... (only declare once)
-
     return (
         <div>
             {/* Add NavBar at the top */}
+            <div>
             <NavBar />
+            </div>
 
             <div className="scam-stats-container" style={{ backgroundColor: '#E6F0F3', padding: '20px', borderRadius: '10px' }}>
-                <div className="header-section" style={{ marginBottom: '30px', fontFamily: 'Newsreader, serif' }}>
-                    <h1 style={{ fontSize: '3rem', color: '#243b53' }}>Scam Statistics Dashboard</h1>
-                    {/* Placeholder for Year Dropdown if needed */}
+                <div className="header-section" style={{ marginBottom: '30px', fontFamily: 'Newsreader, serif', textAlign: 'center' }}>
+                    {/* <h1 style={{ fontSize: '3rem', color: '#243b53' }}>Scam Statistics Dashboard</h1> */}
                 </div>
 
                 {/* Two-Column Section */}
-                <div className="two-column-layout" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginLeft: '5rem', marginRight: '5rem', fontFamily: 'Newsreader, serif' }}>
+                <div className="two-column-layout" style={{
+                    display: 'flex',
+                    flexWrap: 'wrap',
+                    justifyContent: 'space-between',
+                    alignItems: 'flex-start',
+                    margin: '0 2rem',
+                    fontFamily: 'Newsreader, serif'
+                }}>
+                    {/* Left Section - Map */}
+                    <div className="map-section" style={{
+                        flex: '1',
+                        minWidth: '280px',
+                        marginBottom: '20px',
+                        fontFamily: 'Newsreader, serif'
+                    }}>
+                        <h2 style={{ fontSize: '2rem', color: '#243b53', fontFamily: 'Newsreader, serif' }}>Select a State</h2>
+                        <MapContainer
+                            style={{
+                                height: '400px',
+                                width: '100%',
+                                borderRadius: '10px',
+                                boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+                                fontFamily: 'Newsreader, serif'
+                            }}
+                            center={[-25.2744, 133.7751]}
+                            zoom={3}
+                            scrollWheelZoom={false}
+                        >
+                            <TileLayer
+                                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                                attribution='&copy; OpenStreetMap contributors'
+                            />
+                            {geoData && (
+                                <GeoJSON
+                                    data={geoData}
+                                    style={geoJsonStyle}  // Apply the custom style with colors
+                                    onEachFeature={onEachState} // Click handler for each state and add state names
+                                />
+                            )}
+                        </MapContainer>
+                    </div>
 
-                    {/* Left Section - Textual Info */}
-                    <div className="textual-info" style={{ flex: '1', textAlign: 'left', paddingRight: '40px', fontFamily: 'Newsreader, serif' }}>
-                        <h2 style={{ fontSize: '2rem', color: '#243b53', marginBottom: '20px' }}>
-                            Please select your state:
-                        </h2>
-
-                        <p style={{ fontSize: '1.75rem', color: '#243b53', fontWeight: 'bold', fontFamily: 'Newsreader, serif' }}>
-                            In <strong style={{ fontSize: '2.5rem', }}>VICTORIA</strong>,
+                    {/* Right Section - Textual Info */}
+                    <div className="textual-info" style={{
+                        flex: '1',
+                        textAlign: 'left',
+                        paddingLeft: '20px',
+                        minWidth: '280px',
+                        fontFamily: 'Newsreader, serif'
+                    }}>
+                        <p style={{ fontSize: '1.75rem', color: '#243b53', fontWeight: 'bold', fontFamily: 'Newsreader, serif', marginTop: '35px' }}>
+                            In <strong style={{ fontSize: '2.5rem', }}>{selectedState.toUpperCase()}</strong>,
                         </p>
                         <p style={{ fontSize: '1.5rem', color: '#5f6c7b', fontFamily: 'Newsreader, serif' }}>
                             over the past <strong>1 year</strong>, data shows that scam reports received, ranked from highest to lowest, vary by age group
@@ -686,48 +662,23 @@ const ScamStats = () => {
                         >
                             Next &darr;
                         </div>
-
-                    </div>
-
-                    {/* Right Section - Map */}
-                    <div className="map-section" style={{ flex: '1', fontFamily: 'Newsreader, serif' }}>
-                        <h2 style={{ fontSize: '2rem', color: '#243b53', fontFamily: 'Newsreader, serif' }}>Select a State</h2>
-                        <MapContainer
-                            style={{ height: '400px', width: '100%', borderRadius: '10px', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)', fontFamily: 'Newsreader, serif' }}
-                            center={[-25.2744, 133.7751]}
-                            zoom={4}
-                            scrollWheelZoom={false}
-                        >
-                            <TileLayer
-                                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                                attribution='&copy; OpenStreetMap contributors'
-                            />
-                            {geoData && (
-                                <GeoJSON
-                                    data={geoData}
-                                    style={geoJsonStyle}  // Apply the custom style with colors
-                                    onEachFeature={onEachState} // Click handler for each state and add state names
-                                />
-                            )}
-                        </MapContainer>
-
-
                     </div>
                 </div>
 
                 {/* Tab Section */}
-                <div id="scam-type-section" className="tab-section" style={{ marginBottom: '30px' }}>
+                <div id="scam-type-section" className="tab-section" style={{ marginBottom: '30px', textAlign: 'center' }}>
                     <button
                         className={activeTab === 'amountLost' ? 'tab active' : 'tab'}
                         onClick={() => handleTabSwitch('amountLost')}
                         style={{
                             padding: '10px 20px',
-                            marginRight: '10px',
+                            margin: '10px 5px',
                             border: activeTab === 'amountLost' ? '2px solid #000' : '1px solid #ccc',
-                            backgroundColor: activeTab === 'amountLost' ? '#fff' : '#f9f9f9',
+                            backgroundColor: '#f9f9f9',
                             cursor: 'pointer',
                             borderRadius: '5px',
                             fontSize: '1rem',
+                            color: '#000',
                         }}
                     >
                         Amount Lost
@@ -737,11 +688,13 @@ const ScamStats = () => {
                         onClick={() => handleTabSwitch('reportNumber')}
                         style={{
                             padding: '10px 20px',
+                            margin: '10px 5px',
                             border: activeTab === 'reportNumber' ? '2px solid #000' : '1px solid #ccc',
-                            backgroundColor: activeTab === 'reportNumber' ? '#fff' : '#f9f9f9',
+                            backgroundColor: '#f9f9f9',
                             cursor: 'pointer',
                             borderRadius: '5px',
                             fontSize: '1rem',
+                            color: '#000',
                         }}
                     >
                         Report Number
@@ -755,65 +708,176 @@ const ScamStats = () => {
                         className="stats-and-chart-section"
                         style={{
                             display: 'flex',
+                            flexWrap: 'wrap',
                             justifyContent: 'space-between',
                             alignItems: 'flex-start',
-                            flexWrap: 'nowrap', // Ensure side by side alignment
-                            marginBottom: '30px',
-                            marginLeft: '5rem', marginRight: '5rem',
+                            margin: '0 2rem 30px',
                         }}
                     >
                         {/* Chart Section */}
-                        <div style={{ flex: '1', marginRight: '20px', minWidth: '300px' }}>
+                        <div
+                            className="chart-container"
+                            style={{
+                                flex: '1',
+                                marginRight: '20px',
+                                boxSizing: 'border-box',
+                                margin: '0 auto',
+                            }}
+                        >
                             {activeTab === 'amountLost' ? (
                                 <>
                                     <h2>Amount Lost in {selectedState} (Last 5 Years)</h2>
-                                    <Line
-                                        data={chartData}
-                                        options={chartOptions}
-                                    />
+                                    <div className="chart-wrapper">
+                                        <Bar
+                                            data={chartData}
+                                            options={{
+                                                ...chartOptions,
+                                                maintainAspectRatio: false,  // Allow the height to adjust dynamically
+                                                responsive: true,
+                                                scales: {
+                                                    x: {
+                                                        ticks: {
+                                                            font: {
+                                                                size: 12,
+                                                            },
+                                                            maxRotation: 0,
+                                                            minRotation: 0,
+                                                        },
+                                                    },
+                                                    y: {
+                                                        ticks: {
+                                                            font: {
+                                                                size: 12,
+                                                            },
+                                                        },
+                                                    },
+                                                },
+                                                plugins: {
+                                                    legend: {
+                                                        labels: {
+                                                            font: {
+                                                                size: 12,
+                                                            },
+                                                        },
+                                                    },
+                                                    datalabels: {
+                                                        display: false,  // Disable labels on bars
+                                                    },
+                                                },
+                                            }}
+                                            height={400}  // Maintain a reasonable height for the chart
+                                        />
+                                    </div>
                                 </>
                             ) : (
                                 <>
                                     <h2>Number of Reports in {selectedState} (Last 5 Years)</h2>
-                                    <Line
-                                        data={reportsData}
-                                        options={reportsChartOptions}
-                                    />
+                                    <div className="chart-wrapper">
+                                        <Bar
+                                            data={reportsData}
+                                            options={{
+                                                ...reportsChartOptions,
+                                                maintainAspectRatio: false,  // Disable to allow height adjustment
+                                                responsive: true,
+                                                scales: {
+                                                    x: {
+                                                        ticks: {
+                                                            font: {
+                                                                size: 12,
+                                                            },
+                                                            maxRotation: 0,
+                                                            minRotation: 0,
+                                                        },
+                                                    },
+                                                    y: {
+                                                        ticks: {
+                                                            font: {
+                                                                size: 12,
+                                                            },
+                                                        },
+                                                    },
+                                                },
+                                                plugins: {
+                                                    legend: {
+                                                        labels: {
+                                                            font: {
+                                                                size: 12,
+                                                            },
+                                                        },
+                                                    },
+                                                    datalabels: {
+                                                        display: false,  // Disable labels on bars
+                                                    },
+                                                },
+                                            }}
+                                            height={400}
+                                        />
+                                    </div>
                                 </>
                             )}
                         </div>
 
+
                         {/* Textual Stats */}
                         <div
-                            className="textual-stats"
+                            className="textual-stats" // Correctly applied class
                             style={{
-                                flex: '0 0 350px',
+                                flex: '0 0 300px',
                                 textAlign: 'left',
                                 fontFamily: 'Georgia, serif',
                                 color: '#243b53',
                                 marginLeft: '20px',
+                                marginTop: '20px',
                                 minWidth: '250px',
                             }}
                         >
-                            <h2 style={{ fontSize: '2rem', marginBottom: '0.5rem', color: '#243b53' }}>
+                            <h2 className="amount-header" style={{
+                                fontSize: '2rem',
+                                marginBottom: '0.5rem',
+                                color: '#243b53',
+                                textAlign: 'center',
+                            }}>
                                 In <strong>{selectedYear}</strong>,
                             </h2>
-                            <p style={{ fontSize: '3rem', fontWeight: 'bold', color: '#D9534F', margin: '0.5rem 0' }}>
+                            <p className="amount-text" style={{
+                                fontSize: '2.5rem',
+                                fontWeight: 'bold',
+                                color: '#D9534F',
+                                margin: '0.5rem 0',
+                                textAlign: 'center',
+                            }}>
                                 {activeTab === 'amountLost'
                                     ? `$${parseFloat(totalLostSelectedYear).toLocaleString()}`
                                     : `${parseInt(totalReportsSelectedYear).toLocaleString()}`}
                             </p>
-                            <p style={{ fontSize: '1.25rem', color: '#243b53', marginBottom: '2rem' }}>
+                            <p className="amount-description" style={{
+                                fontSize: '1.25rem',
+                                color: '#243b53',
+                                marginBottom: '2rem',
+                                textAlign: 'center',
+                            }}>
                                 {activeTab === 'amountLost' ? 'amount lost to scams' : 'reports of scams'}
                             </p>
 
-                            <p style={{ fontSize: '2.5rem', fontWeight: 'bold', color: '#F0AD4E', margin: '0.5rem 0' }}>
+                            <p className="percentage-text" style={{
+                                fontSize: '2.5rem',
+                                fontWeight: 'bold',
+                                color: '#F0AD4E',
+                                margin: '0.5rem 0',
+                                textAlign: 'center',
+                            }}>
                                 {activeTab === 'amountLost'
                                     ? `$${parseFloat(lostByAge55SelectedYear).toLocaleString()}`
                                     : `${parseInt(reportsByAge55SelectedYear).toLocaleString()}`}
                             </p>
 
-                            <p style={{ fontSize: '1.75rem', fontWeight: 'bold', color: '#F0AD4E', margin: '0.5rem 0' }}>
+                            <p className="percentage-description" style={{
+                                fontSize: '1.75rem',
+                                fontWeight: 'bold',
+                                color: '#F0AD4E',
+                                margin: '0.5rem 0',
+                                textAlign: 'center',
+                            }}>
                                 nearly {activeTab === 'amountLost'
                                     ? `${percentageLostByAge55}%`
                                     : `${percentageReportsByAge55}%`}
@@ -822,9 +886,9 @@ const ScamStats = () => {
                             <p style={{ fontSize: '1.5rem', margin: '0.5rem 0' }}>
                                 of the total are from people who are <strong style={{ fontSize: '2rem', color: '#243b53' }}>55 and over</strong>
                             </p>
-                            <div className='button-section-nex' style={{ display: 'flex' }}>
+                            <div className='button-section-nex' style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', marginTop: '20px' }}>
                                 <div className="next-button"
-                                    style={{ fontSize: '1.25rem', color: '#243b53', marginTop: '30px', cursor: 'pointer' }}
+                                    style={{ fontSize: '1.25rem', color: '#243b53', marginTop: '10px', cursor: 'pointer' }}
                                     onClick={() => {
                                         const element = document.getElementById('scam-type-chart');
                                         if (element) {
@@ -836,7 +900,6 @@ const ScamStats = () => {
                                 >
                                     Next &darr;
                                 </div>
-
                             </div>
                         </div>
                     </div>
@@ -844,10 +907,24 @@ const ScamStats = () => {
 
                 {/* Scam Type Distribution Horizontal Bar Chart and Top 3 Scam Methods */}
                 {selectedState && scamTypeData.length > 0 && (
-                    <div id='scam-type-chart' className="scam-type-chart-and-stats-section" style={{ marginTop: '30px', display: 'flex', marginLeft: '5rem', marginRight: '5rem', }}>
+                    <div id='scam-type-chart' className="scam-type-chart-and-stats-section" style={{
+                        marginTop: '30px',
+                        display: 'flex',
+                        flexWrap: 'wrap',
+                        justifyContent: 'space-between',
+                        alignItems: 'flex-start',
+                        margin: '0 5rem',
+                    }}>
                         {/* Chart Section */}
-                        <div style={{ width: '66%' }}>
-                            <h2 style={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap' }}>
+                        {/* Chart Section */}
+                        <div style={{
+                            width: '100%',
+                            maxWidth: '800px',
+                            flex: '1',
+                            minWidth: '300px',
+                            margin: '0 auto',  // Ensure the chart stays centered
+                        }}>
+                            <h2 style={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', textAlign: 'center' }}>
                                 Distribution of Scam Types in&nbsp;
                                 <div style={{ position: 'relative', display: 'inline-block', marginRight: '10px' }}>
                                     <select
@@ -874,7 +951,6 @@ const ScamStats = () => {
                                     </select>
                                     <span style={{
                                         position: 'absolute',
-                                        marginRight: '20px',
                                         right: '-20px',
                                         top: '50%',
                                         transform: 'translateY(-50%)',
@@ -912,7 +988,6 @@ const ScamStats = () => {
                                         ))}
                                     </select>
                                     <span style={{
-
                                         position: 'absolute',
                                         right: '-20px',
                                         top: '50%',
@@ -927,11 +1002,13 @@ const ScamStats = () => {
                                     }}></span>
                                 </div>
                             </h2>
-                            <Bar data={horizontalBarChartData} options={horizontalBarChartOptions} />
+                            <div className="chart-wrapper" style={{ width: '100%', maxWidth: '800px', margin: '0 auto' }}>
+                                <Bar data={horizontalBarChartData} options={horizontalBarChartOptions} />
+                            </div>
                         </div>
 
                         {/* Top 3 Scam Methods */}
-                        <div style={{ width: '33%', paddingLeft: '20px', fontFamily: 'Georgia, serif', color: '#243b53', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', textAlign: 'center' }}>
+                        <div style={{ width: '100%', maxWidth: '300px', paddingLeft: '20px', fontFamily: 'Georgia, serif', color: '#243b53', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', textAlign: 'center', marginTop: '20px' }}>
                             {scamTypeData.slice(0, 3).map((method, index) => {
                                 let fontSize, color;
                                 if (index === 0) {
@@ -952,11 +1029,10 @@ const ScamStats = () => {
                                         <p style={{ fontSize: '1.25rem', marginBottom: '0.5rem' }}>
                                             Reports by Age 55+: <strong style={{ color: '#D9534F' }}>{parseInt(method.count).toLocaleString()}</strong>
                                         </p>
-
                                     </div>
                                 );
                             })}
-                            <div className='button-section-nex' style={{ display: 'flex' }}>
+                            <div className='button-section-nex' style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
                                 <div className="next-button"
                                     style={{ fontSize: '1.25rem', color: '#243b53', marginTop: '30px', cursor: 'pointer', }}
                                     onClick={() => document.getElementById('scam-category-chart').scrollIntoView({ behavior: 'smooth' })}
@@ -970,17 +1046,24 @@ const ScamStats = () => {
                                     Previous &uarr;
                                 </div>
                             </div>
-
                         </div>
                     </div>
                 )}
 
-                {/* Scam Categories Area Chart */}
+                {/* Scam Categories Bubble Chart */}
                 {selectedState && categoryTrendData.length > 0 && (
-                    <div id='scam-category-chart' className="scam-category-chart-and-text-section" style={{ width: '88%', marginTop: '30px', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginLeft: '5.3rem' }}>
+                    <div id='scam-category-chart' className="scam-category-chart-and-text-section" style={{
+                        width: '88%',
+                        marginTop: '30px',
+                        display: 'flex',
+                        flexWrap: 'wrap',
+                        justifyContent: 'space-between',
+                        alignItems: 'flex-start',
+                        marginLeft: '5.3rem',
+                    }}>
 
-                        {/* Left Section: Scam Categories Area Chart */}
-                        <div className="scam-category-chart-section" style={{ flex: '1', marginRight: '20px' }}>
+                        {/* Left Section: Scam Categories Bubble Chart */}
+                        <div className="scam-category-chart-section" style={{ flex: '1', marginRight: '20px', minWidth: '300px' }}>
                             <h2 style={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap' }}>
                                 Types of Scams in&nbsp;
                                 <div style={{ position: 'relative', display: 'inline-block', marginRight: '10px' }}>
@@ -1062,15 +1145,24 @@ const ScamStats = () => {
                                 </div>
                             </h2>
 
-                            {/* Line chart for scam trends by category (Area Chart) */}
-                            <Line data={categoryChartData} options={categoryChartOptions} />
+                            {/* Bubble chart for scam categories */}
+                            <Bubble data={bubbleChartData} options={bubbleChartOptions} />
                         </div>
 
                         {/* Right Section: Textual Information */}
-                        <div className="scam-category-text-section" style={{ flex: '0 0 350px', fontFamily: 'Georgia, serif', color: '#243b53', textAlign: 'left', marginLeft: '20px', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', textAlign: 'center' }}>
-                            <h2 style={{ fontSize: '2rem', marginBottom: '0.5rem' }}>Top Scam Categories</h2>
+                        <div className="scam-category-text-section" style={{
+                            flex: '0 0 350px',
+                            fontFamily: 'Georgia, serif',
+                            color: '#243b53',
+                            textAlign: 'left',
+                            marginLeft: '20px',
+                            textAlign: 'center',
+                        }}>
+                            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl mb-2">Top Scam Categories</h2>
 
-                            {topCategoriesComputed.slice(0, 3).map((category, index) => {
+                            {categoryTrendData.length > 0 && bubbleChartData.datasets[0].data.slice(0, 3).map((dataPoint, index) => {
+                                const category = dataPoint.category;
+                                const count = dataPoint.count;
                                 let fontSize, color;
                                 switch (index) {
                                     case 0:
@@ -1092,16 +1184,15 @@ const ScamStats = () => {
                                 return (
                                     <div key={index} style={{ marginBottom: '20px' }}>
                                         <h3 style={{ fontSize: fontSize, marginBottom: '0.5rem', color: color }}>
-                                            {index + 1}. {category.category}
+                                            {index + 1}. {category}
                                         </h3>
                                         <p style={{ fontSize: '1.25rem', color: '#243b53' }}>
-                                            Reports: <strong style={{ color: '#D9534F' }}>{category.count.toLocaleString()}</strong>
+                                            Reports: <strong style={{ color: '#D9534F' }}>{parseInt(count).toLocaleString()}</strong>
                                         </p>
                                     </div>
-
                                 );
                             })}
-                            <div className='button-section-nex' style={{ display: 'flex' }}>
+                            <div className='button-section-nex' style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
 
                                 <div className="previous-button"
                                     style={{ fontSize: '1.25rem', color: '#243b53', marginTop: '30px', cursor: 'pointer', marginLeft: '3rem' }}
@@ -1113,6 +1204,7 @@ const ScamStats = () => {
                         </div>
                     </div>
                 )}
+
 
             </div>
             {/* Add Footer at the bottom */}

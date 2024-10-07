@@ -33,12 +33,20 @@ const EmailDetection = () => {
     const [loading, setLoading] = useState(false);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const resultRef = useRef(null);
+    const [loadingStage, setLoadingStage] = useState(0);
 
 
     const API_URL = 'https://v393yif444.execute-api.us-east-1.amazonaws.com/stage1/smsDetect';
 
     const detectScam = async () => {
         setLoading(true);
+        setLoadingStage(1);
+
+        // First loading stage: "Going through the email..."
+        const firstTimeout = setTimeout(() => {
+            setLoadingStage(2);
+        }, 4000);
+
         try {
             const response = await axios.post(API_URL, {
                 text: textInput
@@ -51,16 +59,20 @@ const EmailDetection = () => {
                 notScamPercentage,
                 ScamPercentage
             });
-            setIsModalOpen(true);
+            setIsModalOpen(true); // Open the modal when result is received
         } catch (error) {
             setResult({
                 DetectionResult: 'Error',
                 notScamPercentage: 'N/A',
                 ScamPercentage: 'N/A'
             });
-            setIsModalOpen(true); 
+            setIsModalOpen(true); // Open the modal even on error
         } finally {
-            setLoading(false);
+            clearTimeout(firstTimeout); // Clear the first timeout if the request finishes early
+            setTimeout(() => {
+                setLoading(false);
+                setLoadingStage(0);
+            }, 4000); // Ensure loading stage changes to "Almost there..." for at least 4 seconds
         }
     };
 
@@ -233,13 +245,11 @@ const EmailDetection = () => {
                                     {/* Detect Button */}
                                     <button
                                         onClick={detectScam}
-                                        // className="button-blue hover:bg-blue-800 flex items-center justify-center px-6 py-2 my-4 text-lg shadow-xl rounded-xl"
-                                        className={`button-blue hover:bg-blue-800 flex items-center justify-center py-2 my-4 w-full text-lg shadow-xl rounded-xl  
-                                ${loading ? 'loading' : ''}`}
+                                        className={`button-green hover:bg-green-600 flex items-center justify-center py-2 my-4 w-full text-lg shadow-xl rounded-xl ${loading ? 'loading' : ''}`}
                                         disabled={loading}
                                     >
                                         {loading ? (
-                                            <span className="spinner-border" role="status" aria-hidden="true"></span>
+                                            loadingStage === 1 ? 'Going through the text...' : 'Almost there...'
                                         ) : (
                                             'Detect'
                                         )}
