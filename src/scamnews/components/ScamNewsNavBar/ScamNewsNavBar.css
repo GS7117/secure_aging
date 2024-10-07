@@ -1,0 +1,177 @@
+.navbar {
+  background-color: #004754 !important;
+  padding: 20px !important;
+  font-size: 18px !important;
+  height: 200px !important; /* 设置导航栏高度为 80px */
+  margin-top: 65px;
+}
+
+.nav-brand {
+  font-size: 30px !important;
+  margin-left: 10px !important;
+  font-weight: 700 !important;
+  color: #A9F285 !important;
+}
+
+.nav {
+  display: flex;
+  flex-wrap: wrap; /* 允许内容换行 */
+  justify-content: center; /* 子元素水平居中对齐 */
+  margin-top: 20px; 
+  align-items: center; /* 垂直居中对齐 */
+  width: 100%; /* 确保导航栏占满父容器的宽度 */
+}
+
+/* 新的 nav-item 按钮样式 */
+.nav-item-btn {
+  background-color: #eef0f3 !important;
+  color: rgb(17, 16, 16) !important;
+  font-size: 18px !important;
+  border-radius: 25px !important;
+  padding: 8px 15px !important;
+  border: none !important;
+  transition: 0.3s ease !important;
+  margin-top: 10px; 
+  margin-left: 10px;
+  width: auto; /* 确保按钮根据内容调整宽度 */
+  flex-shrink: 0; /* 防止按钮缩小 */
+  max-width: 400px; /* 可根据需要设置按钮的最大宽度 */
+}
+
+.nav-item-btn:hover {
+  background-color: rgb(14, 96, 185) !important;
+  transform: translateY(-3px) !important;
+  color: rgb(245, 240, 240) !important;
+}
+
+.close-btn {
+  color: #ffffff80 !important;
+  cursor: pointer !important;
+  margin-inline-end: 6px !important;
+}
+
+.search-form {
+  display: flex !important;
+  align-items: center !important;
+}
+
+.form-input {
+  border-radius: 0 !important;
+  border-top-left-radius: 25px !important;
+  border-bottom-left-radius: 25px !important;
+  padding: 11px !important;
+  margin-left: 13px !important;
+  margin-right: -9px !important;
+  font-size: 18px !important;
+  background-color: #e5ebf1 !important;
+  color: #1a1a1a !important;
+  border: 0 !important;
+  outline: 0 !important;
+  width: 600px !important;
+}
+
+.form-input:focus {
+  box-shadow: none !important;
+}
+
+.logo {
+  width: 45px !important;
+}
+
+.search-btn {
+  background-color: #0b7cf5 !important;
+  color: white !important;
+  font-weight: 700 !important;
+  border-radius: 0 !important;
+  border-top-right-radius: 25px !important;
+  border-bottom-right-radius: 25px !important;
+  padding: 9px 15px !important;
+  border-color: #8e9edeb7 !important;
+  font-size: 18px !important;
+  margin-right: 10px !important;
+}
+
+.search-btn:hover {
+  background-color: rgb(9 71 137) !important;
+  transition: 0.5s ease !important;
+}
+
+.search-btn:disabled {
+  background-color: #025bba !important;
+}
+
+.nav-and-search {
+  display: flex;
+  flex-direction: column; /* 让子元素垂直排列 */
+  align-items: center;    /* 确保内容水平居中 */
+  justify-content: center; /* 确保内容在父容器中垂直居中 */
+  width: 100%; /* 宽度设为100%以确保 flexbox 居中对齐有效 */
+}
+
+
+/* 媒体查询：大屏幕（宽度大于 1200px） */
+@media (min-width: 1200px) {
+
+
+  .form-input {
+    width: 700px !important; /* 大屏幕下的宽度 */
+  }
+
+  .navbar {
+    height: 240px !important; /* 大屏幕下的高度 */
+  }
+}
+
+/* 媒体查询：中等屏幕（宽度在 992px 到 1199px 之间） */
+@media (min-width: 992px) and (max-width: 1199px) {
+
+  .form-input {
+    width: 600px !important; /* 中屏幕下的宽度 */
+  }
+
+  .navbar {
+    height: 240px !important; /* 中屏幕下的高度 */
+  }
+}
+
+/* 媒体查询：小屏幕（宽度在 768px 到 991px 之间） */
+@media (min-width: 768px) and (max-width: 991px) {
+  .nav {
+    flex-direction: column; /* 在小屏幕上垂直排列 */
+    align-items: center; /* 确保子元素在垂直布局下居中 */
+  }
+
+  .nav-item-btn {
+    width: auto !important; /* 防止按钮在小屏幕上变得太宽 */
+    max-width: 280px !important; /* 为按钮设置最大宽度，防止超出屏幕 */
+  }
+
+  .form-input {
+    width: 450px !important; /* 小屏幕下的宽度 */
+  }
+
+  .navbar {
+    height: 300px !important; /* 小屏幕下的高度 */
+  }
+}
+
+/* 媒体查询：超小屏幕（宽度小于 768px） */
+@media (max-width: 767px) {
+  .nav {
+    flex-direction: column; /* 垂直排列 */
+    align-items: center; /* 居中排列按钮 */
+  }
+
+  .nav-item-btn {
+    width: auto !important; /* 防止按钮在小屏幕上变得太宽 */
+    max-width: 280px !important; /* 为按钮设置最大宽度，防止超出屏幕 */
+  }
+
+  .form-input {
+    width: 300px !important; /* 超小屏幕下的宽度 */
+  }
+
+  .navbar {
+    height: 300px !important; /* 超小屏幕下的高度 */
+  }
+}

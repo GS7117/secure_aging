@@ -34,22 +34,26 @@ const ScamTypes = () => {
     ];
 
     return (
-        <div className="scam-types py-12" style={{ backgroundColor: '#E9EDC9' }}>
-            <h2 className="text-center text-3xl uppercase font-bold " data-aos="zoom-in" data-aos-delay="200"  style={{ color: '#283618' }}>Scam Types</h2>
-            <div className="flex flex-col space-y-8 mt-8 px-8">
+        <div className="scam-types py-12 " style={{ backgroundColor: '#E9EDC9' }}>
+            <section data-aos="zoom-in" data-aos-delay="200">
+            <h1 className="newsreaderfont text-center "   style={{ color: '#283618' }}>Scam Types</h1>
+            <p className="text-center text-xl mb-8" data-aos="zoom-in" data-aos-delay="300">Click 'Learn More' to see more information</p>
+
+            <div className="flex flex-col space-y-8 mt-8 px-8 ">
                 {scamTypes.map((scam, index) => (
                     <div key={index} className="flex flex-col md:flex-row items-center bg-white p-4 rounded-lg shadow-lg max-w-3xl mx-auto" data-aos="zoom-in" data-aos-delay="200">
-                        <img src={scam.img} alt={scam.title} className="w-24 h-24 mb-4 md:mb-0 md:mr-8" />
-                        <div>
-                            <h3 className="text-xl font-semibold">{scam.title}</h3>
-                            <p className="text-gray-700 mb-4">{scam.description}</p>
-                            <Link to={scam.link} className="text-white bg-green-900 hover:bg-green-700 inline-flex items-center justify-center px-4 py-2 text-lg shadow-xl rounded-2xl" style={{ textDecoration: 'none' }}>
+                        <img src={scam.img} alt={scam.title} className="w-32 h-32 mb-4 md:mb-0 md:mr-8" />
+                        <div className="ml-3">
+                            <h3 className="text-2xl font-semibold">{scam.title}</h3>
+                            <p className="interfont text-xl text-gray-700 mb-4">{scam.description}</p>
+                            <Link style={{textDecoration: 'none'}} to={scam.link} className="text-white bg-green-900 hover:bg-green-700 inline-flex items-center justify-center px-4 py-2 text-lg shadow-xl rounded-2xl">
                                 Learn More
                             </Link>
                         </div>
                     </div>
                 ))}
             </div>
+            </section>
         </div>
     );
 }

@@ -28,23 +28,23 @@ const romanceSections = [
 ];
 
 const protectYourselfSection =[
-    <section className="bg-red-50 p-10 mt-5 mx-5">
-            <h2 className="mb-5 text-red-700 text-3xl font-bold">Protect Yourself</h2>
-            <div className="">
+    <div className="text-center mx-auto" style={{ maxWidth: '900px' }}>
+            <h2 className="mb-3 text-green-700 text-3xl font-bold">Protect Yourself</h2>
+            
             <h3 className="text-2xl font-semibold">Never Send Money:</h3>
-        <p className="mb-4 text-lg">Don't send money, gift cards, or personal details to someone you haven't met in person, no matter how long you've been in contact. Never agree to transfer money for others; this could involve you in illegal activities like money laundering.</p>
+            <span className="mb-4 text-lg" >Don't send money, gift cards, or personal details to someone you haven't met in person, no matter how long you've been in contact. Never agree to transfer money for others; this could involve you in illegal activities like money laundering.</span>
 
     <h3 className="text-2xl font-semibold">Verify Who You're Talking To:</h3>
-    <p className="mb-4 text-lg">Take your time when meeting people online. Search their name with ‘scam’ or do a reverse image search to check for inconsistencies. Educate yourself about common scams to spot red flags.</p>
+    <span className="mb-4 text-lg" >Take your time when meeting people online. Search their name with ‘scam’ or do a reverse image search to check for inconsistencies. Educate yourself about common scams to spot red flags.</span>
 
     <h3 className="text-2xl font-semibold">Be Careful What You Share:</h3>
-    <p className="text-lg">Never send intimate photos or videos to people you don't know well. Share your online relationship with someone you trust to spot potential warning signs. Be cautious with personal details like your job or family information, as scammers can use this against you.</p>
+    <span className="mb-4 text-lg" >Never send intimate photos or videos to people you don't know well. Share your online relationship with someone you trust to spot potential warning signs. Be cautious with personal details like your job or family information, as scammers can use this against you.</span>
   
     <h3 className="text-2xl font-semibold">Watch for Red Flags:</h3>
-    <p className="text-lg">Be wary if they avoid meeting in person, quickly express strong emotions, or ask for money. Scammers often build trust before making a request</p>
+    <span className="mb-4 text-lg" >Be wary if they avoid meeting in person, quickly express strong emotions, or ask for money. Scammers often build trust before making a request</span>
   
   </div>
-</section>
+
 
 ];
 

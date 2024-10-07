@@ -1,15 +1,20 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client'; // 从 'react-dom/client' 导入 createRoot
-import './index.css';
-import App from './App';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import React from "react";
+import { createRoot } from "react-dom/client";
+import "./index.css";
+import App from "./App";
+import "bootstrap/dist/css/bootstrap.min.css";
+import { Provider } from "react-redux";
+import { store } from "./scamnews/store/store";
 
-const rootElement = document.getElementById('root'); // 获取根元素
-const root = ReactDOM.createRoot(rootElement); // 使用 createRoot 创建根
+const root = document.getElementById("root");
+const rootElement = createRoot(root);
 
-root.render(
+rootElement.render(
   <React.StrictMode>
-    <App />
+    <Provider store={store}>
+      <App />
+    </Provider>
   </React.StrictMode>
 );
+
 

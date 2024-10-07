@@ -1,0 +1,70 @@
+/* 设置卡片的最小高度，确保所有卡片一致 */
+.card {
+    border-radius: 15px !important;
+    background-color: rgb(229, 236, 244) !important;
+    box-shadow: 0px 3px 12px 0px #7a7b7d2b !important;
+    color: #023047 !important;
+    transition: transform 0.4s ease !important;
+    min-height: 480px; /* 设置卡片的最小高度，可以根据需要调整 */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  
+  /* 保持图片的固定高度 */
+  .card-img {
+    border-top-left-radius: 15px !important;
+    border-top-right-radius: 15px !important;
+    object-fit: cover !important;
+    width: 100% !important;
+    height: 230px !important;
+  }
+  
+  /* 强制限制标题的行数，保证所有标题高度一致 */
+  .card-title {
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* 限制描述最多显示3行 */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    min-height: 50px; /* 设置最小高度，确保所有标题一致 */
+  }
+  
+  /* 强制限制描述的行数，保证所有描述高度一致 */
+  .card-description {
+    color: #292727 !important;
+    display: -webkit-box;
+    -webkit-line-clamp: 3; /* 限制描述最多显示3行 */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    min-height: 90px; /* 设置最小高度，确保所有描述一致 */
+  }
+  
+  /* 按钮样式 */
+  .card-btn {
+    border-radius: 15px !important;
+    font-weight: bold !important;
+    box-shadow: 0px 3px 12px 0px #1817172b !important;
+    color: white !important;
+    border-color: #323762b7 !important;
+    padding: 9px 17px !important;
+    background-color: #005abb !important;
+    transition: 0.5s ease !important;
+    
+  }
+  
+  .card-btn:hover {
+    background-color: rgb(9 71 137) !important;
+  }
+  
+  .arrow-icon {
+    fill: #fff !important;
+    width: 13px !important;
+    transition: transform 0.5s ease !important;
+  }
+  
+  .card-btn:hover .arrow-icon {
+    transform: translateX(5px);
+  }
+  

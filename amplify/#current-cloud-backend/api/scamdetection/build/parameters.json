@@ -1,0 +1,7 @@
+{
+    "AppSyncApiName": "scamdetection",
+    "DynamoDBBillingMode": "PAY_PER_REQUEST",
+    "DynamoDBEnableServerSideEncryption": false,
+    "S3DeploymentBucket": "amplify-scamdetection-dev-4c8d2-deployment",
+    "S3DeploymentRootKey": "amplify-appsync-files/0695938720435aa9cdaf1a1c310638398ccacfed"
+}

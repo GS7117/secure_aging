@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import NavLinks from './NavLinks';
 import { HashLink } from 'react-router-hash-link';
-import logo from "./logo.svg";
+import logo from "./secure_aging_logo.png";
 
 const NavBar = () => {
     const [top, setTop] = useState(!window.scrollY);
@@ -23,9 +23,9 @@ const NavBar = () => {
         <nav className={`fixed top-0 w-full z-30 bg-white transition duration-300 ease-in-out ${!top && 'bg-white shadow-lg'}`}>
             <div className="flex flex-row justify-between items-center">
                 <div className="flex flex-row justify-center md:px-2 md:mx-2 items-center text-center font-semibold">
-                    <img className="h-20 w-auto" src={logo} alt="Your Company" />
+                    <img className="h-16 w-auto" src={logo} alt="Your Company" />
                     <HashLink style={{ textDecoration: 'none' }} smooth to="/#hero">
-                        <h1 className="font-extrabold text-3xl" style={{ color: '#3CAE9B' }}>Secure Aging</h1>
+                        <h1 className="headerfont text-3xl" style={{ color: '#3CAE9B' }}>Secure Aging</h1>
                     </HashLink>
                 </div>
                 <div className="group flex flex-col items-center">

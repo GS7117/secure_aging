@@ -1,4 +1,4 @@
-import React , {useEffect} from 'react';
+import React, { useEffect } from 'react';
 import ScamPage from './ScamPage';
 import PageImg from '../images/Investment_scam_tiltleImg.png';
 import InvestmentImage1 from '../images/InvestmentScam_eg1.png';
@@ -28,26 +28,26 @@ const investmentSections = [
 ];
 
 
-const protectYourselfSection =[
-    <section className="bg-red-50 p-10 mt-5 mx-5">
-            <h2 className="mb-5 text-red-700 text-3xl font-bold">Protect Yourself</h2>
-            <div className="">
-            <h3 className="text-2xl font-semibold">Do Your Homework:</h3>
-        <p className="mb-4 text-lg">Before investing, research the company or opportunity. Verify their legitimacy through official financial regulators and look up reviews or complaints online. If something feels off, trust your instincts.</p>
+const protectYourselfSection = [
+    <div className="text-center mx-auto" style={{ maxWidth: '900px' }}>
+        <h2 className="mb-3 text-green-700 text-3xl font-bold">Protect Yourself</h2>
 
-    <h3 className="text-2xl font-semibold">Question High Returns:</h3>
-    <p className="mb-4 text-lg">Be cautious of any investment promising unusually high returns with little risk. Scammers often lure victims with guarantees that are too good to be true. Remember, legitimate investments come with risks.
-    </p>
+        <h3 className="text-2xl font-semibold">Do Your Homework:</h3>
+        <span className="mb-4 text-lg" >Before investing, research the company or opportunity. Verify their legitimacy through official financial regulators and look up reviews or complaints online. If something feels off, trust your instincts.</span>
 
-    <h3 className="text-2xl font-semibold">Take Your Time:</h3>
-    <p className="text-lg">Scammers often create a false sense of urgency, pushing you to invest immediately. Take your time to evaluate the offer carefully and consult with a trusted financial advisor if necessary.</p>
-  
-    <h3 className="text-2xl font-semibold">Protect Your Information:</h3>
-    <p className="text-lg">Never share your financial details, like bank account numbers or credit card information, with someone you don’t know or trust. Be especially wary of unsolicited investment offers that require personal information upfront.
-    </p>
-  
-  </div>
-</section>
+        <h3 className="text-2xl font-semibold">Question High Returns:</h3>
+        <span className="mb-4 text-lg" >Be cautious of any investment promising unusually high returns with little risk. Scammers often lure victims with guarantees that are too good to be true. Remember, legitimate investments come with risks.
+        </span>
+
+        <h3 className="text-2xl font-semibold">Take Your Time:</h3>
+        <span className="mb-4 text-lg" > Scammers often create a false sense of urgency, pushing you to invest immediately. Take your time to evaluate the offer carefully and consult with a trusted financial advisor if necessary.</span>
+
+        <h3 className="text-2xl font-semibold">Protect Your Information:</h3>
+        <span className="mb-4 text-lg" >Never share your financial details, like bank account numbers or credit card information, with someone you don’t know or trust. Be especially wary of unsolicited investment offers that require personal information upfront.
+        </span>
+
+    </div>
+
 
 ];
 
@@ -60,12 +60,12 @@ const InvestmentScamPage = () => {
         <ScamPage
             title="Investment Scams"
             description="Investment scams are a type of online fraud where scammers trick victims into investing in fake investment opportunities, promising high returns with low risk. They often use fake websites, social media or emails to pretend they are legitimate."
-            titleImg = {PageImg}
+            titleImg={PageImg}
             sections={investmentSections}
             protectSection={protectYourselfSection}
-            prevLink="/phishingpage" 
+            prevLink="/phishingpage"
             nextLink="/lottery-scam-page"
-            prevLabel="Phishing Scam" 
+            prevLabel="Phishing Scam"
             nextLabel="Lottery Scam"
         />
     );

@@ -1,0 +1,26 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-scamdetection-dev-4c8d2-authRole",
+      "UnauthRoleArn": "arn:aws:iam::017820659662:role/amplify-scamdetection-dev-4c8d2-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::017820659662:role/amplify-scamdetection-dev-4c8d2-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-scamdetection-dev-4c8d2-deployment",
+      "UnauthRoleName": "amplify-scamdetection-dev-4c8d2-unauthRole",
+      "StackName": "amplify-scamdetection-dev-4c8d2",
+      "StackId": "arn:aws:cloudformation:us-east-1:017820659662:stack/amplify-scamdetection-dev-4c8d2/ee0ea6b0-63b6-11ef-bfcf-12faae907a1f",
+      "AmplifyAppId": "d2uxo464kd1ml1"
+    },
+    "categories": {
+      "auth": {
+        "scamdetectiond760c220": {}
+      },
+      "api": {
+        "scamdetection": {}
+      },
+      "storage": {
+        "s361394e23": {}
+      }
+    }
+  }
+}

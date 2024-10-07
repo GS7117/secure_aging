@@ -18,13 +18,20 @@ import PhishingPage from './components/PhishingPage';
 import InvestmentScamPage from './components/InvestmentScamPage';
 import LotteryScam from './components/LotteryScam';
 import RomanceScamPage from './components/RomanceScam';
-import {useDocTitle} from './components/CustomHook';
+import { useDocTitle } from './components/CustomHook';
 import ScrollToTop from './components/ScrollToTop';
 import EmailDetection from './pages/scamdetection/EmailDetection';
 import TextDetection from './pages/scamdetection/TextDetection';
 import URLDetection from './pages/scamdetection/URLDetection';
 import ScamStats from './pages/scamstats/ScamStats';
 
+import Search from './scamnews/components/Search/Search';
+import News from './scamnews/components/News/News';
+import { v4 as uuidv4 } from "uuid";
+import { router } from "./scamnews/config/config";
+
+// 引入 RedirectToExternal 组件
+import RedirectToExternal from './components/RedirectToExternal';
 
 function App() {
   useEffect(() => {
@@ -56,9 +63,25 @@ function App() {
             <Route path="/url" element={<URLDetection />} /> 
             <Route path="/scamstats" element={<ScamStats />} />
 
-            {/* 新增的 /iteration1 路由重定向 */}
-            <Route path="/iteration1" element={<Navigate to="https://iteration1.secureaging.software" replace />} />
-
+            {/* 使用 RedirectToExternal 组件进行外部重定向 */}
+            <Route path="/iteration1" element={<RedirectToExternal url="https://iteration1.secureaging.software" />} />
+            
+            {router.map((path) => (
+              <Route
+                exact
+                key={uuidv4()}
+                path={path.path}
+                element={
+                  <News
+                    key={path.key}
+                    newscategory={path.category}
+                    country={path.country}
+                  />
+                }
+              />
+            ))}
+            <Route path="/search/:query" element={<Search />} />
+          
           </Routes>
         </ScrollToTop>
       </Router>

@@ -2,62 +2,46 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import NavBar from '../components/Navbar/NavBar';
 import { Link as ScrollLink } from 'react-scroll';
-// import heroImg from '../images/web-dev.svg';
-import seniorImg from '../images/5 Best Smartphones for Seniors 2023 1.png'
-
+import seniorImg from '../images/5 Best Smartphones for Seniors 2023 1.png';
 
 const Hero = () => {
     return (
         <>
-            <div className="hero" id='hero'>
-                <div>
-                    <NavBar />
-                </div>
-                
-                <div className="m-auto overflow-hidden mx-4 mt-8 lg:mt-4 p-2 lg:px-12 md:p-12 h-5/6" data-aos="zoom-in">
-
-                    <div id='hero' className="flex flex-col lg:flex-row py-8 justify-between text-left">
-                        <div className="lg:w-1/2 flex flex-col justify-center" data-aos="zoom-in" data-aos-delay="200">
-                        <h1 className="mb-5 md:text-5xl text-3xl font-bold pt-16 lg:pt-0" style={{ color: '#A9F285' }}>
-                            STOP, Better Safe than Scammed.
-                        </h1>
-                            <div className="flex justify-start items-left text-xl font-semibold tracking-tight mb-5 text-white">Our platform raises awareness by offering a comprehensive database of past and ongoing scams, delivering timely news updates, and connecting users with personal security assistance.</div>
-                            <div className="mb-4 space-x-0 md:space-x-2 md:mb-8">
-                                <Link to="/detection" style={{ textDecoration: 'none' }} className="text-white bg-yellow-500 hover:bg-blue-800 inline-flex items-center justify-center w-full px-6 py-3 my-4 text-lg shadow-xl rounded-2xl sm:w-auto sm:mb-0">
+            <div className="hero pt-20 pb-0 lg:pt-10 " id='hero'>
+                <NavBar />
+                <div className="flex justify-center items-center overflow-hidden  mx-4 mt-8 px-12   h-5/6 ">
+                    <div className="flex flex-col lg:flex-row  justify-between items-center text-left" style={{ maxWidth: '1400px' }}>
+                        <div className="lg:w-1/2 flex flex-col justify-center">
+                            <p className="newsreaderfont mb-5 md:text-5xl text-4xl" style={{ color: '#A9F285' }}>
+                                STOP, Better Safe than Scammed.
+                            </p>
+                            <div className="newsreaderfont text-xl tracking-tight mb-5 text-white">
+                                Our platform raises awareness by offering a comprehensive database of past and ongoing scams, delivering timely news updates, and connecting users with personal security assistance.
+                            </div>
+                            <div className="space-x-0 md:space-x-2">
+                                <Link to="/detection" style={{ textDecoration: 'none' }} className="text-white bg-yellow-500 hover:bg-amber-500 inline-flex items-center justify-center w-full px-6 py-2 my-2 text-lg shadow-xl rounded-2xl sm:w-auto">
                                     Get Started
-                                    {/* <svg className="w-4 h-4 ml-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd"></path></svg> */}
                                 </Link>
-
-                                <ScrollLink
-                                    to="services"
-                                    smooth={true}
-                                    duration={1000}
-                                    style={{ textDecoration: 'none' }}
-                                    className="text-yellow-500 hover:text-white inline-flex items-center justify-center px-6 cursor-pointer"
-                                >
+                                <ScrollLink style={{ textDecoration: 'none' }} to="services" smooth={true} duration={1000} className="text-yellow-500 hover:text-amber-600 inline-flex items-center justify-center px-6 cursor-pointer">
                                     Explore More
-                                    <svg className="w-4 h-4 ml-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd"></path></svg>
-                                
+                                    <svg className="w-4 h-4 ml-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                        <path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd"></path>
+                                    </svg>
                                 </ScrollLink>
-                                {/* <Link to="/contact" className="text-white bg-blue-900 hover:bg-blue-800 inline-flex items-center justify-center w-full px-6 py-3 my-4 text-lg shadow-xl rounded-2xl sm:w-auto sm:mb-0">
-                                    Get Started
-                                    <svg className="w-4 h-4 ml-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd"></path></svg>
-                                </Link> */}
-                                {/* <a href="#_" className="inline-flex items-center justify-center w-full px-6 py-3 my-4 text-lg text-white bg-gray-500 hover:bg-gray-400 shadow-xl rounded-2xl sm:w-auto sm:mb-0">
-                                    Learn More
-                                    <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path></svg>
-                                </a> rounded-t float-right duration-1000 h-full w-3/5 w-full lg:w-3/5 lg:h-full */}
                                 
                             </div>
+                            <br></br>
+                            <br></br>
                         </div>
-                        <div className="flex lg:justify-end w-full lg:w-1/2 mb-8 lg:mb-0" data-aos="fade-up" data-aos-delay="700">
-                            <img src= {seniorImg} alt="card img" className="rounded-t float-right duration-1000 h-full w-full lg:w-3/5"   />
+                        <div className="lg:w-1/2 lg:justify-end flex ">
+                            <img src={seniorImg} alt="card img" className="hidden lg:block rounded-t duration-1000 h-full w-full lg:max-w-xs" />
                         </div>
+                        
                     </div>
                 </div>
             </div>
         </>
-    )
+    );
 }
 
 export default Hero;

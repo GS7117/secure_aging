@@ -17,6 +17,9 @@ import { hierarchy, pack } from 'd3-hierarchy';
 Chart.register(...registerables, ChartDataLabels);
 
 const ScamStats = () => {
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
     // Array of state names for the dropdown
     const stateNames = [
         "Australian Capital Territory",

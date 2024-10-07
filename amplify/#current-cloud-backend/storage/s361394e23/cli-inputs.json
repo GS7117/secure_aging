@@ -1,0 +1,14 @@
+{
+  "resourceName": "s361394e23",
+  "policyUUID": "61394e23",
+  "bucketName": "scamdetectiond9c525e0ed904b6ab71f776f86960f9f",
+  "storageAccess": "auth",
+  "guestAccess": [],
+  "authAccess": [
+    "CREATE_AND_UPDATE",
+    "READ",
+    "DELETE"
+  ],
+  "triggerFunction": "NONE",
+  "groupAccess": {}
+}

@@ -1,4 +1,4 @@
-
+import { HashLink } from 'react-router-hash-link';
 import NavBar from '../../components/Navbar/NavBar';
 import Footer from '../../components/Footer';
 import React, { useRef, useState, useEffect } from 'react';
@@ -11,19 +11,14 @@ import HighRiskAlert from '../../components/DetectAlert/HighRisk';
 import MediumRiskAlert from '../../components/DetectAlert/MediumRisk';
 import LowRiskAlert from '../../components/DetectAlert/LowRisk';
 import ErrorAlert from '../../components/DetectAlert/ErrorAlert';
-import FloatingLabel from 'react-bootstrap/FloatingLabel';
-import Form from 'react-bootstrap/Form';
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
+import Navigator from '../../components/addComponent/Navigator';
+import { Form, FloatingLabel, Container, Row, Col, Button, Modal } from 'react-bootstrap';
 import './ScamDetection.css';  // 自定义样式
 import RemoveSMS from '../../components/EduComponent/RemoveSMS';
-//import SteptoDetect from '../../components/EduComponent/StepstoDetect';
+import SteptoDetect from '../../components/EduComponent/StepstoDetect';
 import DetectionStep from '../../components/EduComponent/DetectionSteps';
-import Modal from '../../components/Modal';
-import Navigator from '../../components/Navigator';
 
-const EmailDetection = () => {
+const TextDetection = () => {
     useEffect(() => {
         window.scrollTo(0, 0);
     }, []);
@@ -31,7 +26,6 @@ const EmailDetection = () => {
     const [textInput, setTextInput] = useState('');
     const [result, setResult] = useState(null);
     const [loading, setLoading] = useState(false);
-    const [isModalOpen, setIsModalOpen] = useState(false);
     const resultRef = useRef(null);
     const [loadingStage, setLoadingStage] = useState(0);
 
@@ -59,14 +53,14 @@ const EmailDetection = () => {
                 notScamPercentage,
                 ScamPercentage
             });
-            setIsModalOpen(true); // Open the modal when result is received
+             // Open the modal when result is received
         } catch (error) {
             setResult({
                 DetectionResult: 'Error',
                 notScamPercentage: 'N/A',
                 ScamPercentage: 'N/A'
             });
-            setIsModalOpen(true); // Open the modal even on error
+            
         } finally {
             clearTimeout(firstTimeout); // Clear the first timeout if the request finishes early
             setTimeout(() => {
@@ -85,15 +79,20 @@ const EmailDetection = () => {
         setTextInput('');
     };
 
+    // Existing state and variables
+    const removeInfoRef = useRef(null);
+
     useEffect(() => {
-        if (result && resultRef.current) {
-            const element = resultRef.current;
-            const elementRect = element.getBoundingClientRect();
-            const absoluteElementTop = elementRect.top + window.pageYOffset;
-            const middle = absoluteElementTop - (window.innerHeight / 2) + (elementRect.height / 2);
-            window.scrollTo({ top: middle, behavior: 'smooth' });
+        if (result && (result.DetectionResult === 'High risk' || result.DetectionResult === 'Medium risk')) {
+            if (removeInfoRef.current) {
+                const element = removeInfoRef.current;
+                const elementRect = element.getBoundingClientRect();
+                const absoluteElementTop = elementRect.top + window.pageYOffset;
+                const middle = absoluteElementTop - (window.innerHeight/2) + (elementRect.height /4);
+                window.scrollTo({ top: middle, behavior: 'smooth' });
+            }
         }
-    }, [result]);
+    }, [result]);  // Ensuring useEffect runs when result changes
 
     const handleNavigation = (id) => {
         setTimeout(() => {
@@ -115,72 +114,24 @@ const EmailDetection = () => {
 
             <div id='steptodetect' className="text-page-blue py-6" >
                 <section data-aos="zoom-in-down">
-                    <div className="my-4 py-4">
-
-                    </div>
-
-                    <div className="my-4 pt-4" >
-                        <h2 className="NRtextTiltle">Text Detection</h2>
+                    <div >
+                        <h2 className="NRtextTiltle pt-20">Text Detection</h2>
                         <div className="flex justify-center mx-12">
                             <DetectionStep />
                         </div>
 
-                        {/* <div className="NRtextText" style={{
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    margin: '0 auto', // Corrects centering
-                    marginLeft: '30px',
-                    marginRight: '30px'
-                }}>
-                Tool to help understand the content you receive is scam or not ...</div> */}
-
-                        {/* <Link to="/text#emaildetect" className="button-blue hover:bg-blue-800 flex items-center justify-center px-6 py-2 my-4 text-lg shadow-xl rounded-xl"
-                            style={{ textDecoration: 'none', margin: '0 auto', maxWidth: '200px' }}
-                            onClick={() => handleNavigation('textdetect')}>
-                            Start Detection
-                            <svg className="w-4 h-4 ml-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                                <path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd"></path>
-                            </svg>
-                        </Link> */}
-{/* 
-                        <h2 className="NRtextTiltle">How it works ?</h2>
-
-
-
-                        <div className="flex justify-center mx-12">
-                            <SteptoDetect />
-
-                        </div>
-                        <br></br>
-                        <br></br> */}
-
-                        <div className="NRtextText" style={{
-                            display: 'flex',
-                            justifyContent: 'center',
-                            alignItems: 'center',
-                            margin: '0 auto', // Corrects centering
-                            marginLeft: '30px',
-                            marginRight: '30px'
-                         }}>
-                        {/* //<p>
-                        //         if you need assistance on <strong>how to safely copy & paste</strong> the text content,<br></br>
-                        //         Click ‘view more’ </p> */}
-                        </div>
-
-                        {/* <div className="flex justify-center items-center ">
-                            < SMSPopup />
-                        </div> */}
-
-
                     </div>
+
+
+
+
                 </section>
             </div>
 
 
-            {/* Email detection */}
-            <div id='textdetect' className="flex justify-center items-center w-full py-12 lg:py-14 text-page-lightblue ">
-                <div className="container my-8 px-4 lg:px-20" data-aos="zoom-in" >
+            {/* Text detection */}
+            <div id='textdetect' className="flex justify-center items-center w-full text-page-blue ">
+                <div className="container px-4 lg:px-20" data-aos="zoom-in" >
 
                     {/* image box */}
                     <div className="absolute w-full lg:w-2/6 px-8  rounded-2xl">
@@ -190,10 +141,10 @@ const EmailDetection = () => {
                     </div>
 
 
-                    <div className="w-full lg:w-9/12 bg-white p-8 my-4 md:px-12 lg:px-0 lg:pl-32 lg:pr-16 rounded-2xl shadow-2xl ml-auto">
+                    <div className="w-full lg:w-9/12 bg-white p-8 md:px-12 lg:px-0 lg:pl-32 lg:pr-16 rounded-2xl shadow-2xl ml-auto">
                         <div className="flex">
-                            <h1 className="font-bold text-center lg:text-center text-blue-900 uppercase text-4xl">
-                                Please COPY & PASTE the text into the text box below:</h1>
+                            <h1 className="font-bold text-center lg:text-center text-blue-900 uppercase text-3xl">
+                                COPY & PASTE the SMS in below:</h1>
                         </div>
 
                         {/* textbox */}
@@ -201,13 +152,13 @@ const EmailDetection = () => {
                             <>
                                 <FloatingLabel
                                     controlId="floatingTextarea"
-                                    label="Paste your email content here"
+                                    label="Paste your SMS content here"
                                     className="mb-3"
                                 >
                                     <Form.Control
                                         as="textarea"
-                                        placeholder="Leave a comment here"
-                                        style={{ height: '280px' }}
+                                        placeholder="Paste your SMS content here"
+                                        style={{ height: '260px' }}
                                         value={textInput}  // Control the value with state
                                         onChange={handleInputChange}  // Update state on change
                                     />
@@ -220,24 +171,20 @@ const EmailDetection = () => {
                         <Container>
                             <Row>
                                 <Col style={{ display: 'flex', justifyContent: 'flex-start' }}>
-                                    {/* Redirect to 'how it works' */}
-                                    <Link to="/text#textdetect" style={{
-                                        color: '#283618',
-                                        textDecoration: 'underline',
-                                        border: 'none',  // Removes default button border
-                                        background: 'none',  // Removes default button background
-                                        cursor: 'pointer',  // Makes it clear it's clickable
-                                        display: 'flex',
-                                        alignItems: 'center' // Aligns items in the button horizontally
-                                    }}
-                                        onClick={() => handleNavigation('steptodetect')}>
-                                        How it works
-
-                                        <svg className="ml-1 bi bi-arrow-up-short" width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16">
-                                            <path fillRule="evenodd" d="M8 12a.5.5 0 0 0 .5-.5V5.707l2.146 2.147a.5.5 0 0 0 .708-.708l-3-3a.5.5 0 0 0-.708 0l-3 3a.5.5 0 1 0 .708.708L7.5 5.707V11.5a.5.5 0 0 0 .5.5" />
-                                        </svg>
-
-                                    </Link>
+                                    {/* Result */}
+                                    <div ref={resultRef} style={{ display: 'flex', justifyContent: 'center' }}>
+                                        {result && (
+                                            result.DetectionResult === 'High risk' ? (
+                                                <HighRiskAlert percentage={result.ScamPercentage} />
+                                            ) : result.DetectionResult === 'Medium risk' ? (
+                                                <MediumRiskAlert percentage={result.ScamPercentage} />
+                                            ) : result.DetectionResult === 'Low risk' ? (
+                                                <LowRiskAlert percentage={result.ScamPercentage} />
+                                            ) : (
+                                                <ErrorAlert />
+                                            )
+                                        )}
+                                    </div>
 
                                 </Col>
                                 <Col xs={6}>
@@ -279,118 +226,88 @@ const EmailDetection = () => {
                         </Container>
 
                     </div>
-
-                    {/* Detection Result */}
-                    <Modal show={isModalOpen} onClose={() => setIsModalOpen(false)} title="Detection Result">
-                        <div ref={resultRef} className="flex-col justify-center items-center  mt-16 mb-4" style={{ display: 'flex', justifyContent: 'center' }}>
-                            {result && (
-                                result.DetectionResult === 'High risk' ? (
-                                    <>
-                                        <HighRiskAlert percentage={result.ScamPercentage}/>
-                                        <button className="button-next-step bg-green-900 hover:bg-green-600 text-white my-4 px-4 py-2 rounded mr-2" onClick={() => setIsModalOpen(false)}>Next Step</button>
-                                    </>
-                                
-                                ) : result.DetectionResult === 'Medium risk' ? (
-                                    <>
-                                        <MediumRiskAlert percentage={result.ScamPercentage} />
-                                        <button className="button-next-step bg-green-900 hover:bg-green-600 text-white my-4 px-4 py-2 rounded mr-2" onClick={() => setIsModalOpen(false)}>Next Step</button>    
-                                    </>
-                                ) : result.DetectionResult === 'Low risk' ? (
-                                    <>    
-                                        <LowRiskAlert percentage={result.notScamPercentage} />
-                                        <button className="bg-gray-500 text-white px-4 py-2 rounded mr-2 my-4 " onClick={() => setIsModalOpen(false)}>Close</button>
-                                    
-                                    </>
-                                ) : (
-                                    <ErrorAlert />
-                                )
-                            )}
-                        </div>
-                    </Modal>    
-
-                    {/* Check another SMS */}
-                    <Link to="/text#textdetect" className=" flex items-center justify-center text-lg  rounded-xl"
-                        style={{
-                            color: '#283618',
-                            textDecoration: 'underline',
-                            border: 'none',  // Removes default button border
-                            background: 'none',  // Removes default button background
-                            cursor: 'pointer',  // Makes it clear it's clickable
-                            display: 'flex',
-                            alignItems: 'center' // Aligns items in the button horizontally
-                        }} onClick={() => handleNavigation('textdetect')} >
-                        Check another SMS
-
-                        <svg className="ml-1 bi bi-arrow-up-short" width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16">
-                            <path fillRule="evenodd" d="M8 12a.5.5 0 0 0 .5-.5V5.707l2.146 2.147a.5.5 0 0 0 .708-.708l-3-3a.5.5 0 0 0-.708 0l-3 3a.5.5 0 1 0 .708.708L7.5 5.707V11.5a.5.5 0 0 0 .5.5" />
-                        </svg>
-
-                    </Link>
-
-                    {/* Manage Email section */}
-                    {(result && (result.DetectionResult === 'High risk' || result.DetectionResult === 'Medium risk')) && (
-                        <div className="flex-col justify-center items-center  my-8">
-                            <RemoveSMS />
-                        </div>
-                    )}
-
-                {/* Back to Top */}
-            <Link to="/text" className=" flex items-center justify-center text-lg  rounded-xl"
-                        style={{
-                            color: '#283618',
-                            textDecoration: 'underline',
-                            border: 'none',  // Removes default button border
-                            background: 'none',  // Removes default button background
-                            cursor: 'pointer',  // Makes it clear it's clickable
-                            display: 'flex',
-                            alignItems: 'center' // Aligns items in the button horizontally
-                        }} onClick={() => handleNavigation('steptodetect')} >
-                        Back to Top
-
-                        <svg className="ml-1 bi bi-arrow-up-short" width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16">
-                            <path fillRule="evenodd" d="M8 12a.5.5 0 0 0 .5-.5V5.707l2.146 2.147a.5.5 0 0 0 .708-.708l-3-3a.5.5 0 0 0-.708 0l-3 3a.5.5 0 1 0 .708.708L7.5 5.707V11.5a.5.5 0 0 0 .5.5" />
-                        </svg>
-
-                    </Link>
-                    
-                    
+                    <br></br>
+                    <br></br>
                 </div>
-
             </div>
-            
-            
 
-                    <div id='direction' className="BG-URL-1 py-4 lg:px-10 " >
-
-                        <section data-aos="zoom-in-down" className='mx-auto lg:px-2' style={{ maxWidth: '1600px' }}>
-
-                            <div className=' grid grid-cols-12  mx-12 ' >
-                                <div className="col-span-3 text-xl md:grid-cols-6 gap-1 mx-2 flex items-center ">
-                                    <Navigator
-                                        to="/detection"
-                                        textPrimary="Previous"
-                                        textSecondary="Detection Model"
-                                        direction="left"
-                                        className="text-[#6B88CA] hover:text-blue-900 hover:-translate-x-3"
-                                    />
-                                </div>
-                                <div className="col-span-6 md:grid-cols-0 mx-2">
+            <div>
+                <div id='removeInfo' className="text-page-blue" ref={removeInfoRef}>
+                    {result && (
+                        (result.DetectionResult === 'High risk' || result.DetectionResult === 'Medium risk') ? (
+                            <section data-aos="zoom-in-down" className=' mx-4 lg:px-10'>
+                            <div className="text-page-lightblue text-center py-4 lg:mx-auto shadow-md rounded-xl " style={{ maxWidth: '1300px' }}>
+                                <>
+                                {/* URL Education page */}
+                                <div className="mt-0 mb-8 py-2 flex-col justify-center items-center ">
+                                    <RemoveSMS />
                                 </div>
 
-                                <div className="col-span-3 text-xl md:grid-cols-6 mr-2 flex justify-end items-center">
-                                    <Navigator
-                                        to="/scam-classification"
-                                        textPrimary="Next"
-                                        textSecondary="Scam Types"
-                                        direction="right"
-                                        className="text-[#6B88CA] hover:text-blue-900 hover:-translate-x-3"
-                                    />
-                                </div>
+                                {/* Back to Top */}
+                                <Link to="/text" className=" flex items-center justify-center text-lg pb-4 rounded-xl"
+                                    style={{
+                                        color: '#283618',
+                                        textDecoration: 'underline',
+                                        border: 'none',  // Removes default button border
+                                        background: 'none',  // Removes default button background
+                                        cursor: 'pointer',  // Makes it clear it's clickable
+                                        display: 'flex',
+                                        alignItems: 'center' // Aligns items in the button horizontally
+                                    }} onClick={() => handleNavigation('steptodetect')} >
+                                    Check another SMS
 
+                                    <svg className="ml-1 bi bi-arrow-up-short" width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16">
+                                        <path fillRule="evenodd" d="M8 12a.5.5 0 0 0 .5-.5V5.707l2.146 2.147a.5.5 0 0 0 .708-.708l-3-3a.5.5 0 0 0-.708 0l-3 3a.5.5 0 1 0 .708.708L7.5 5.707V11.5a.5.5 0 0 0 .5.5" />
+                                    </svg>
 
+                                </Link>
+                                </>
                             </div>
                         </section>
+
+                        ) : (
+                            <></>
+                        )
+                    )}
+
+
+                </div>
+            </div>
+
+            {/* User Journey */}
+            {/* #5588B2 */}
+            <div id='direction' className="text-page-blue py-4 lg:px-10 " >
+                <section data-aos="fade-down" className='mx-auto lg:px-2' style={{ maxWidth: '1600px' }}>
+
+                    <div className=' grid grid-cols-12  mx-12 ' >
+                        <div className="col-span-3 text-xl md:grid-cols-6 gap-1 mx-2 flex items-center ">
+                            <Navigator
+                                to="/detection"
+                                currentColor="#5588B2"
+                                hoverColor="blue-900"
+                                textPrimary="Previous"
+                                textSecondary="Detection Model"
+                                direction="left"
+                                className="text-[#5588B2] hover:text-blue-900 hover:-translate-x-3"
+                            />
+                        </div>
+                        <div className="col-span-6 md:grid-cols-0 mx-2">
+                        </div>
+
+                        <div className="col-span-3 text-xl md:grid-cols-6 mr-2 flex justify-end items-center">
+                            <Navigator
+                                to="/scamstats"
+                                textPrimary="Next"
+                                textSecondary="Scam Statistics"
+                                direction="right"
+                                className="text-[#5588B2] hover:text-blue-900 hover:translate-x-3"
+                            />
+                        </div>
+
                     </div>
+                </section>
+            </div>
+
 
             <Footer />
         </>
@@ -399,4 +316,4 @@ const EmailDetection = () => {
     )
 }
 
-export default EmailDetection;
+export default TextDetection;

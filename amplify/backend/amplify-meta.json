@@ -1,0 +1,100 @@
+{
+  "providers": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-scamdetection-dev-4c8d2-authRole",
+      "UnauthRoleArn": "arn:aws:iam::017820659662:role/amplify-scamdetection-dev-4c8d2-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::017820659662:role/amplify-scamdetection-dev-4c8d2-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-scamdetection-dev-4c8d2-deployment",
+      "UnauthRoleName": "amplify-scamdetection-dev-4c8d2-unauthRole",
+      "StackName": "amplify-scamdetection-dev-4c8d2",
+      "StackId": "arn:aws:cloudformation:us-east-1:017820659662:stack/amplify-scamdetection-dev-4c8d2/ee0ea6b0-63b6-11ef-bfcf-12faae907a1f",
+      "AmplifyAppId": "d2uxo464kd1ml1"
+    }
+  },
+  "api": {
+    "scamdetection": {
+      "service": "AppSync",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [],
+      "output": {
+        "authConfig": {
+          "defaultAuthentication": {
+            "authenticationType": "API_KEY",
+            "apiKeyConfig": {
+              "apiKeyExpirationDays": 7
+            }
+          },
+          "additionalAuthenticationProviders": []
+        },
+        "GraphQLAPIIdOutput": "qc3gphmj2vaabc73beun4nvixm",
+        "GraphQLAPIEndpointOutput": "https://bkwuxqzsgbfqzfud7ysaf5jojm.appsync-api.us-east-1.amazonaws.com/graphql",
+        "GraphQLAPIKeyOutput": "da2-2dkjmpdrbfgv5c2v57ncfa62na"
+      },
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-scamdetection-dev-4c8d2-deployment/amplify-cfn-templates/api/cloudformation-template.json",
+        "logicalId": "apiscamdetection"
+      },
+      "lastPushTimeStamp": "2024-08-26T14:32:56.943Z",
+      "lastPushDirHash": "B6RZAtqWr8OMHnAE8Dtfi26Bhc0="
+    }
+  },
+  "auth": {
+    "scamdetectiond760c220": {
+      "service": "Cognito",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [],
+      "customAuth": false,
+      "frontendAuthConfig": {
+        "socialProviders": [],
+        "usernameAttributes": [],
+        "signupAttributes": [
+          "EMAIL"
+        ],
+        "passwordProtectionSettings": {
+          "passwordPolicyMinLength": 8,
+          "passwordPolicyCharacters": []
+        },
+        "mfaConfiguration": "OFF",
+        "mfaTypes": [
+          "SMS"
+        ],
+        "verificationMechanisms": [
+          "EMAIL"
+        ]
+      },
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-scamdetection-dev-4c8d2-deployment/amplify-cfn-templates/auth/scamdetectiond760c220-cloudformation-template.json",
+        "logicalId": "authscamdetectiond760c220"
+      },
+      "lastPushTimeStamp": "2024-08-26T14:32:56.943Z",
+      "output": {
+        "UserPoolId": "us-east-1_aJoWRvNPL",
+        "AppClientIDWeb": "3cvk8gvec9vh6angjlrctvj98j",
+        "AppClientID": "50thtdth77oo52oi1mtli37kov",
+        "IdentityPoolId": "us-east-1:ba597762-35da-46ca-b6b3-efdda6a1032f",
+        "UserPoolArn": "arn:aws:cognito-idp:us-east-1:017820659662:userpool/us-east-1_aJoWRvNPL",
+        "IdentityPoolName": "scamdetectiond760c220_identitypool_d760c220__dev",
+        "UserPoolName": "scamdetectiond760c220_userpool_d760c220"
+      },
+      "lastPushDirHash": "iVjFmEkrDMtuBAfCT7WHoYcfe2s="
+    }
+  },
+  "storage": {
+    "s361394e23": {
+      "service": "S3",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [],
+      "lastPushTimeStamp": "2024-08-26T14:32:56.943Z",
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-scamdetection-dev-4c8d2-deployment/amplify-cfn-templates/storage/cloudformation-template.json",
+        "logicalId": "storages361394e23"
+      },
+      "output": {
+        "BucketName": "scamdetectiond9c525e0ed904b6ab71f776f86960f9f4c8d2-dev",
+        "Region": "us-east-1"
+      },
+      "lastPushDirHash": "yO8VgwQ+JKrSWcGpwyRVoADqJDM="
+    }
+  }
+}

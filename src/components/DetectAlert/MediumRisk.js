@@ -1,20 +1,23 @@
 import { useState } from 'react';
-import Alert from 'react-bootstrap/Alert';
-import Button from 'react-bootstrap/Button';
+import { Modal, Button } from 'react-bootstrap';
 import TooltipInfo from './tooltipInfo';
 
 
 function MediumRiskAlert({ percentage }) {
-  const [show, setShow] = useState(true);
+  const [show, setShow] = useState(true);  // Start with the modal shown
+
+  const handleClose = () => setShow(false);
 
   if (show) {
     return (
       <>
 
-        <Alert variant='warning' data-aos="zoom-in" className="alert-custom"
-          onClose={() => setShow(false)} dismissible>
-
-          <div className="grid sm:grid-cols-1 lg:grid-cols-3 gap-6" style={{ marginLeft: '30px', marginRight: '30px' }}>
+        <Modal show={show} onHide={handleClose} centered >
+          <Modal.Header style={{ borderBottom: 'none','background-color': '#FFF8E5' }} className='pb-0'  closeButton >
+            {/* <Modal.Title >Detection Result</Modal.Title> */}
+          </Modal.Header>
+          <Modal.Body className='py-0 text-orange-500 ' style={{ borderBottom: 'none','background-color': '#FFF8E5' }} >
+          <div className=" grid grid-cols-3 gap-6" style={{ marginLeft: '30px', marginRight: '30px' }}>
             <div className="col-span-1 flex items-center justify-center">
               <div className="m-2 text-justify text-sm flex-1">
                 <div className="alart-container">
@@ -34,13 +37,43 @@ function MediumRiskAlert({ percentage }) {
             </div>
 
           </div>
-        </Alert>
-        <div><TooltipInfo text={'Moderate risk. 40-60% chance this could be a scam or spam. Exercise caution. '} /></div>
+            
+
+          </Modal.Body>
+
+          <Modal.Footer style={{'background-color':'#FFF8E5'}} className=" modal-footer border-0 pt-0" >
+          <div className="grid grid-cols-2 gap-1">
+          <div className='flex justify-center'>
+            <TooltipInfo  text={'Moderate risk. 40-60% chance this could be a scam or spam. Exercise caution. '} />
+            </div>
+          <Button variant="warning" onClick={handleClose}>
+            Close & See More Info
+          </Button>
+          </div>
+        </Modal.Footer>
+
+        </Modal>
 
       </>
     );
+
+
+
   }
-  return (<Button variant="secondary" onClick={() => setShow(true)}>Show Result Again</Button>);
+  return (
+    <button onClick={() => setShow(true)}
+    style={{
+      color: '#283618',
+      textDecoration: 'underline',
+      border: 'none',  // Removes default button border
+      background: 'none',  // Removes default button background
+      cursor: 'pointer',  // Makes it clear it's clickable
+      display: 'flex',
+      alignItems: 'center' // Aligns items in the button horizontally
+    }}>
+    Previous Result
+  </button>
+  );
 }
 
 

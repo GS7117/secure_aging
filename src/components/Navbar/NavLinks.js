@@ -1,58 +1,66 @@
 import React, { useState, useRef } from 'react';
 import { HashLink } from 'react-router-hash-link';
+import { Dropdown } from 'react-bootstrap';
 
 const NavLinks = () => {
-    const [dropdownOpen, setDropdownOpen] = useState(false);
-    const closeTimeoutRef = useRef(null);
+    const [showScamDetection, setShowScamDetection] = useState(false);
+    const [showScamAwareness, setShowScamAwareness] = useState(false);
 
-    const handleMouseEnter = () => {
-        if (closeTimeoutRef.current) {
-            clearTimeout(closeTimeoutRef.current);
-            closeTimeoutRef.current = null;
-        }
-        setDropdownOpen(true);
+    const handleMouseEnter = (setter) => {
+        setter(true);
     };
 
-    const handleMouseLeave = () => {
-        closeTimeoutRef.current = setTimeout(() => {
-            setDropdownOpen(false);
-        }, 200); // Delay in milliseconds
+    const handleMouseLeave = (setter) => {
+        setter(false);
     };
 
     return (
-        <div className="relative flex space-x-4">
-            <HashLink style={{ textDecoration: 'none' }} className="px-4 font-extrabold text-gray-500 hover:text-green-900" smooth to="/">
-                Home Page
+        <div className="d-flex flex-column flex-md-row align-items-center">
+            <HashLink style={{ textDecoration: 'none' }} className="px-4 font-bold text-gray-500 hover:text-green-900" smooth to="/#hero">
+            Home Page
             </HashLink>
-            <HashLink style={{ textDecoration: 'none' }} className="px-4 font-extrabold text-gray-500 hover:text-green-900" to="/detection">
-                Scam Detection
+            
+            <Dropdown as="span" 
+                      onMouseEnter={() => handleMouseEnter(setShowScamDetection)}
+                      onMouseLeave={() => handleMouseLeave(setShowScamDetection) }
+                      show={showScamDetection}>
+                <Dropdown.Toggle as="button" className="px-4 font-bold text-gray-500 hover:text-green-900">
+                <HashLink style={{ textDecoration: 'none' }} className=" font-bold text-gray-500 hover:text-green-900" smooth to="/detection">
+            Scam Detection
             </HashLink>
-            <div className="relative inline-block" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
-                <button className="px-4 font-extrabold text-gray-500 hover:text-green-900 focus:outline-none">
+                </Dropdown.Toggle>
+                <Dropdown.Menu>
+                    <Dropdown.Item as={HashLink} to="/email">Email Detection</Dropdown.Item>
+                    <Dropdown.Item as={HashLink} to="/text">Text Detection</Dropdown.Item>
+                    <Dropdown.Item as={HashLink} to="/url">URL Detection</Dropdown.Item>
+                </Dropdown.Menu>
+            </Dropdown>
+
+            <Dropdown as="span" 
+                      onMouseEnter={() => handleMouseEnter(setShowScamAwareness)}
+                      onMouseLeave={() => handleMouseLeave(setShowScamAwareness)}
+                      show={showScamAwareness}>
+                <Dropdown.Toggle as="button" className="px-4 font-bold text-gray-500 hover:text-green-900">
                     Scam Awareness
-                    <svg className="w-4 h-4 ml-1 inline" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
-                        <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M1 1l4 4 4-4" />
-                    </svg>
-                </button>
-                {dropdownOpen && (
-                    <div className="absolute left-0 mt-2 w-48 bg-white divide-y divide-gray-100 rounded-lg shadow-lg z-10">
-                        <ul className="" aria-labelledby="dropdownDelayButton">
-                            <li>
-                                <HashLink smooth to="/scam-classification" className=" text-m text-gray-500 hover:text-green-900 block font-extrabold py-2  focus:outline-none" style={{ textDecoration: 'none' }}>
-                                    Scam Types
-                                </HashLink>
-                            </li>
-                            <li>
-                                <HashLink smooth to="/scamstats" className="text-m text-gray-500 hover:text-green-900 block font-extrabold py-2  focus:outline-none" style={{ textDecoration: 'none' }}>
-                                    Scam Statistics
-                                </HashLink>
-                            </li>
-                        </ul>
-                    </div>
-                )}
-            </div>
+                </Dropdown.Toggle>
+                <Dropdown.Menu>
+                    <Dropdown.Item as={HashLink} to="/scam-classification">Scam Types</Dropdown.Item>
+                    <Dropdown.Item as={HashLink} to="/scamstats">Scam Statistics</Dropdown.Item>
+                </Dropdown.Menu>
+            </Dropdown>
+
+            {/* Scam News */}
+            <HashLink 
+                style={{ textDecoration: 'none' }} 
+                className="px-4 font-bold text-gray-500 hover:text-green-900" 
+                smooth 
+                to="/scam"  // 修改这个路由为 /scam
+            >
+            Scam News
+            </HashLink>
         </div>
     );
 };
 
 export default NavLinks;
+

@@ -2,9 +2,10 @@ import { useState } from 'react';
 import { Badge, Card } from 'react-bootstrap';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 
-import SMSPopup from '../../components/SMSPopup';
+import LaptopVideo from './laptopVideo';
+import PhoneVideo from './phoneVideo';
 
-function Steps() {
+function Steps( { isVideo, videoLink } ) {
     const [show, setShow] = useState(false);
 
     const handleClose = () => setShow(false);
@@ -51,21 +52,25 @@ function Steps() {
                         </Card.Body>
                     </Card>
 
-                    <Card border="primary" style={{ width: '20rem', marginBottom: '1rem' }}>
-                        <Card.Body>
-                            <Card.Title> How to copy & paste ? </Card.Title>
-                            <Card.Text>
-                                <div style={{ "font-weight": "normal", 'fontFamily': 'Arial' }}>
-                                    <h5  >if you need assistance on how to safely copy & paste the text content,
-                                        Click ‘view more’</h5>
 
-                                    {/* NEED TO CHANGE THIS FOR DIFFERENT PAGES */}
-                                    <SMSPopup />
-
-                                </div>
-                            </Card.Text>
-                        </Card.Body>
-                    </Card>
+                    {isVideo !== 'Off' && (
+                <Card border="primary" style={{ width: '20rem', marginBottom: '1rem' }}>
+                    <Card.Body>
+                        <Card.Title>How to copy & paste?</Card.Title>
+                        <Card.Text>
+                            <div style={{ fontWeight: "normal", fontFamily: 'Arial' }}>
+                                <h5>If you need assistance on how to safely copy & paste the text content, on different devices,
+                                    <strong> select your device</strong>, to view more</h5>
+                                    <div className='grid grid-cols-2 gap-2'>
+                                    <LaptopVideo />
+                                    <PhoneVideo />
+                                    </div>
+                    
+                            </div>
+                        </Card.Text>
+                    </Card.Body>
+                </Card>
+            )}
 
                 </Offcanvas.Body>
 
